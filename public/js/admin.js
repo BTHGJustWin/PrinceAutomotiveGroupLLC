@@ -95,28 +95,71 @@ function initAdminNav() {
 // ============================================================
 
 async function initAdminDashboard() {
-  const statsContainer = document.getElementById('adminStats');
-  if (!statsContainer) return;
+  // Load stats
+  const statVehicles = document.getElementById('statVehicles');
+  if (!statVehicles) return; // Not on dashboard page
 
-  const data = await apiRequest('/api/admin/stats');
-  if (!data) return;
-
-  const stats = data.stats || data;
-
-  const statMappings = [
-    { id: 'statVehicles', key: 'total_vehicles', label: 'Total Vehicles', icon: 'fas fa-car' },
-    { id: 'statBookings', key: 'active_bookings', label: 'Active Bookings', icon: 'fas fa-calendar-check' },
-    { id: 'statCustomers', key: 'registered_customers', label: 'Customers', icon: 'fas fa-users' },
-    { id: 'statValue', key: 'total_inventory_value', label: 'Inventory Value', icon: 'fas fa-dollar-sign', format: 'price' }
-  ];
-
-  statMappings.forEach(stat => {
-    const el = document.getElementById(stat.id);
-    if (el) {
-      const value = stats[stat.key] ?? 0;
-      el.textContent = stat.format === 'price' ? formatPrice(value) : value;
+  try {
+    const data = await apiRequest('/api/admin/stats');
+    if (data) {
+      const stats = data.stats || data;
+      if (document.getElementById('statVehicles')) document.getElementById('statVehicles').textContent = stats.totalVehicles ?? 0;
+      if (document.getElementById('statBookings')) document.getElementById('statBookings').textContent = stats.activeBookings ?? 0;
+      if (document.getElementById('statCustomers')) document.getElementById('statCustomers').textContent = stats.registeredCustomers ?? 0;
+      if (document.getElementById('statValue')) document.getElementById('statValue').textContent = formatPrice(stats.revenuePotential ?? 0);
     }
-  });
+  } catch (err) {
+    console.error('Error loading stats:', err);
+  }
+
+  // Load recent bookings for dashboard
+  try {
+    const bookingData = await apiRequest('/api/admin/bookings');
+    const bookings = Array.isArray(bookingData) ? bookingData : (bookingData && bookingData.bookings ? bookingData.bookings : []);
+    const recentBody = document.getElementById('recentBookingsBody');
+    if (recentBody) {
+      if (bookings.length === 0) {
+        recentBody.innerHTML = '<tr><td colspan="6" class="text-center">No bookings yet.</td></tr>';
+      } else {
+        recentBody.innerHTML = bookings.slice(0, 5).map(b => `
+          <tr>
+            <td>${b.booking_ref || 'N/A'}</td>
+            <td>${b.first_name || ''} ${b.last_name || ''}</td>
+            <td>${b.vehicle_year || ''} ${b.vehicle_make || ''} ${b.vehicle_model || ''}</td>
+            <td>${(b.booking_type || '').toUpperCase()}</td>
+            <td><span class="badge badge-status badge-${b.status}">${(b.status || '').toUpperCase()}</span></td>
+            <td>${b.created_at ? formatDate(b.created_at) : 'N/A'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  } catch (err) {
+    console.error('Error loading recent bookings:', err);
+  }
+
+  // Load recent inquiries for dashboard
+  try {
+    const inquiryData = await apiRequest('/api/admin/inquiries');
+    const inquiries = Array.isArray(inquiryData) ? inquiryData : (inquiryData && inquiryData.inquiries ? inquiryData.inquiries : []);
+    const recentInqBody = document.getElementById('recentInquiriesBody');
+    if (recentInqBody) {
+      if (inquiries.length === 0) {
+        recentInqBody.innerHTML = '<tr><td colspan="5" class="text-center">No inquiries yet.</td></tr>';
+      } else {
+        recentInqBody.innerHTML = inquiries.slice(0, 5).map(i => `
+          <tr>
+            <td>${i.name || 'N/A'}</td>
+            <td>${i.email || 'N/A'}</td>
+            <td>${(i.inquiry_type || 'general').toUpperCase()}</td>
+            <td><span class="badge badge-status badge-${i.status || 'new'}">${(i.status || 'new').toUpperCase()}</span></td>
+            <td>${i.created_at ? formatDate(i.created_at) : 'N/A'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  } catch (err) {
+    console.error('Error loading recent inquiries:', err);
+  }
 }
 
 // ============================================================
@@ -186,58 +229,93 @@ async function loadAdminVehicles() {
 }
 
 // ============================================================
-// EDIT VEHICLE - Load data into form
+// FILTER VEHICLES
+// ============================================================
+
+function filterVehicles() {
+  const status = document.getElementById('filterStatus')?.value || '';
+  const search = document.getElementById('filterSearch')?.value?.toLowerCase() || '';
+
+  const rows = document.querySelectorAll('#vehiclesTableBody tr[data-vehicle-id]');
+  rows.forEach(row => {
+    const statusBadge = row.querySelector('.badge-status')?.textContent?.toLowerCase() || '';
+    const rowText = row.textContent.toLowerCase();
+
+    const matchesStatus = !status || statusBadge.includes(status);
+    const matchesSearch = !search || rowText.includes(search);
+
+    row.style.display = (matchesStatus && matchesSearch) ? '' : 'none';
+  });
+}
+
+// ============================================================
+// EDIT VEHICLE - Redirect to form
 // ============================================================
 
 async function editVehicle(vehicleId) {
+  // Redirect to add-vehicle page with edit ID
+  window.location.href = `/admin/add-vehicle.html?edit=${vehicleId}`;
+  return;
+}
+
+// Load vehicle data into the add-vehicle form for editing
+async function loadVehicleForEdit(vehicleId) {
   const data = await apiRequest(`/api/vehicles/${vehicleId}`);
   if (!data) return;
 
   const vehicle = data.vehicle || data;
-
-  // Show the vehicle form section
-  const formSection = document.getElementById('vehicleFormSection');
-  if (formSection) {
-    formSection.style.display = 'block';
-    formSection.scrollIntoView({ behavior: 'smooth' });
-  }
-
   const form = document.getElementById('vehicleForm');
   if (!form) return;
 
   // Set edit mode
   form.dataset.vehicleId = vehicleId;
+  const vehicleIdInput = document.getElementById('vehicleId');
+  if (vehicleIdInput) vehicleIdInput.value = vehicleId;
 
-  // Update form title
-  const formTitle = document.getElementById('vehicleFormTitle');
-  if (formTitle) {
-    formTitle.textContent = 'Edit Vehicle';
-  }
+  // Update page title
+  const formTitle = document.getElementById('formTitle');
+  if (formTitle) formTitle.textContent = `Edit: ${vehicle.year} ${vehicle.make} ${vehicle.model}`;
 
-  // Populate form fields
-  const fields = [
-    'year', 'make', 'model', 'trim', 'price', 'mileage',
-    'exterior_color', 'interior_color', 'engine', 'transmission',
-    'drivetrain', 'fuel_type', 'body_type', 'vin', 'status',
-    'description', 'lease_monthly', 'rental_daily', 'rental_weekly',
-    'rental_monthly'
-  ];
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save"></i> UPDATE VEHICLE';
 
-  fields.forEach(field => {
-    const input = form.querySelector(`#${field}, [name="${field}"]`);
-    if (input && vehicle[field] !== undefined && vehicle[field] !== null) {
-      input.value = vehicle[field];
+  // Populate all form fields
+  const fieldMap = {
+    year: vehicle.year,
+    make: vehicle.make,
+    model: vehicle.model,
+    trim: vehicle.trim,
+    vin: vehicle.vin,
+    mileage: vehicle.mileage,
+    exteriorColor: vehicle.exterior_color,
+    interiorColor: vehicle.interior_color,
+    bodyType: vehicle.body_type,
+    fuelType: vehicle.fuel_type,
+    transmission: vehicle.transmission,
+    engine: vehicle.engine,
+    drivetrain: vehicle.drivetrain,
+    price: vehicle.price,
+    leaseMonthly: vehicle.lease_monthly,
+    rentalDaily: vehicle.rental_daily,
+    rentalWeekly: vehicle.rental_weekly,
+    rentalMonthly: vehicle.rental_monthly,
+    description: vehicle.description,
+    status: vehicle.status
+  };
+
+  Object.entries(fieldMap).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el && value !== undefined && value !== null) {
+      el.value = value;
     }
   });
 
   // Handle featured checkbox
-  const featuredCheckbox = form.querySelector('#featured, [name="featured"]');
-  if (featuredCheckbox) {
-    featuredCheckbox.checked = vehicle.featured ? true : false;
-  }
+  const featuredCheckbox = document.getElementById('featured');
+  if (featuredCheckbox) featuredCheckbox.checked = !!vehicle.featured;
 
-  // Handle features (JSON array to textarea)
-  const featuresInput = form.querySelector('#features, [name="features"]');
+  // Handle features (array to newline-separated text)
+  const featuresInput = document.getElementById('features');
   if (featuresInput) {
     const features = typeof vehicle.features === 'string'
       ? JSON.parse(vehicle.features || '[]')
@@ -285,42 +363,10 @@ function initAdminVehicleForm() {
   const vehicleForm = document.getElementById('vehicleForm');
   if (!vehicleForm) return;
 
-  // Image upload preview handler
-  const imageInput = vehicleForm.querySelector('#vehicleImages, [name="images"]');
-  if (imageInput) {
-    imageInput.addEventListener('change', function () {
-      handleImageUpload(this);
-    });
-  }
-
-  // Show/hide form section
-  const addVehicleBtn = document.getElementById('addVehicleBtn');
-  if (addVehicleBtn) {
-    addVehicleBtn.addEventListener('click', function () {
-      const formSection = document.getElementById('vehicleFormSection');
-      if (formSection) {
-        formSection.style.display = 'block';
-        formSection.scrollIntoView({ behavior: 'smooth' });
-      }
-      // Reset form for new vehicle
-      vehicleForm.reset();
-      delete vehicleForm.dataset.vehicleId;
-      const formTitle = document.getElementById('vehicleFormTitle');
-      if (formTitle) formTitle.textContent = 'Add New Vehicle';
-      const imagePreview = document.getElementById('imagePreview');
-      if (imagePreview) imagePreview.innerHTML = '';
-    });
-  }
-
-  // Cancel button
-  const cancelBtn = document.getElementById('cancelVehicleForm');
-  if (cancelBtn) {
-    cancelBtn.addEventListener('click', function () {
-      const formSection = document.getElementById('vehicleFormSection');
-      if (formSection) formSection.style.display = 'none';
-      vehicleForm.reset();
-      delete vehicleForm.dataset.vehicleId;
-    });
+  // Check if we're in edit mode (URL has ?edit=ID)
+  const editId = new URLSearchParams(window.location.search).get('edit');
+  if (editId) {
+    loadVehicleForEdit(editId);
   }
 
   // Form submission
@@ -639,14 +685,13 @@ function viewInquiry(inquiryId) {
 }
 
 async function markInquiryRead(inquiryId) {
-  // Attempt to mark as read via API if endpoint exists
   try {
     await apiRequest(`/api/admin/inquiries/${inquiryId}`, {
       method: 'PUT',
-      body: { status: 'read' }
+      body: { status: 'in-progress' }
     });
   } catch (err) {
-    // Silently handle if endpoint doesn't exist
+    // Silently handle
   }
 
   // Update UI
