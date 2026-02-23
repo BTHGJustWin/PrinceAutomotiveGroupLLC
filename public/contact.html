@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Prince Automotive Group LLC</title>
+  <meta name="description" content="Get in touch with Prince Automotive Group. Schedule a viewing, ask about financing, or inquire about our luxury vehicle collection.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link active">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">GET IN TOUCH</h1>
+        <p class="page-subtitle">We're here to answer your questions and help you find the perfect vehicle</p>
+        <div class="section-divider"></div>
+      </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="section section-contact">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Contact Info (Left) -->
+          <div class="contact-info">
+            <h3>REACH OUT TO US</h3>
+            <p class="contact-intro">Whether you have a question about a specific vehicle, want to discuss financing options, or just want to learn more about Prince Automotive Group, we'd love to hear from you.</p>
+
+            <div class="contact-details">
+              <div class="contact-detail-item">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <h4>Email</h4>
+                  <p><a href="mailto:info@princeautomotivegroupllc.com">info@princeautomotivegroupllc.com</a></p>
+                </div>
+              </div>
+              <div class="contact-detail-item">
+                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                <div>
+                  <h4>Phone</h4>
+                  <p><a href="tel:+15557924623">(555) 792-4623</a></p>
+                </div>
+              </div>
+              <div class="contact-detail-item">
+                <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                <div>
+                  <h4>Business Hours</h4>
+                  <p>Monday &ndash; Saturday: 9:00 AM &ndash; 7:00 PM</p>
+                  <p>Sunday: By Appointment Only</p>
+                </div>
+              </div>
+              <div class="contact-detail-item">
+                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                  <h4>Location</h4>
+                  <p>Viewings by appointment only.<br>Contact us to schedule.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-social">
+              <h4>Follow Us</h4>
+              <div class="social-links">
+                <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="YouTube" class="social-link"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="map-placeholder">
+              <div class="map-inner">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>By Appointment Only</p>
+                <span>Contact us to schedule a private viewing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form (Right) -->
+          <div class="contact-form-wrap">
+            <div class="contact-form-card">
+              <h3>SEND US A MESSAGE</h3>
+              <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                  <label for="contactName">Full Name <span class="required">*</span></label>
+                  <input type="text" id="contactName" name="name" required placeholder="Your full name">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="contactEmail">Email <span class="required">*</span></label>
+                    <input type="email" id="contactEmail" name="email" required placeholder="you@example.com">
+                  </div>
+                  <div class="form-group">
+                    <label for="contactPhone">Phone</label>
+                    <input type="tel" id="contactPhone" name="phone" placeholder="(555) 000-0000">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="contactType">Inquiry Type <span class="required">*</span></label>
+                  <select id="contactType" name="inquiryType" required>
+                    <option value="">Select an option</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="vehicle">Vehicle Inquiry</option>
+                    <option value="financing">Financing</option>
+                    <option value="tradein">Trade-In Valuation</option>
+                    <option value="rental">Rental</option>
+                    <option value="partnership">Partnership</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="contactMessage">Message <span class="required">*</span></label>
+                  <textarea id="contactMessage" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-gold btn-block" id="contactSubmit">
+                    <span class="btn-text">SEND MESSAGE</span>
+                    <span class="btn-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+                  </button>
+                </div>
+              </form>
+              <div class="form-success" id="contactSuccess" style="display: none;">
+                <i class="fas fa-check-circle gold-text"></i>
+                <h3>Message Sent!</h3>
+                <p>Thank you for reaching out. A member of our team will get back to you within 24 hours.</p>
+                <button class="btn btn-outline" id="sendAnother">Send Another Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    const contactSuccess = document.getElementById('contactSuccess');
+    const sendAnother = document.getElementById('sendAnother');
+
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('contactSubmit');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const btnLoading = submitBtn.querySelector('.btn-loading');
+
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'inline';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/api/admin/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          contactForm.style.display = 'none';
+          contactSuccess.style.display = 'block';
+        } else {
+          alert('There was an error sending your message. Please try again or contact us directly.');
+        }
+      } catch (error) {
+        alert('There was an error sending your message. Please try again or contact us directly.');
+      } finally {
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+    });
+
+    sendAnother.addEventListener('click', function() {
+      contactForm.reset();
+      contactForm.style.display = 'block';
+      contactSuccess.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

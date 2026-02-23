@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Vehicles | Prince Automotive Group LLC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="navbar admin-navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="admin-badge">ADMIN</div>
+      <div class="nav-auth" id="navAuth">
+        <span id="adminName" class="nav-link">Admin</span>
+        <a href="#" onclick="logout()" class="nav-link">Sign Out</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout">
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h3 class="gold-text">ADMIN PANEL</h3>
+        <p class="admin-user" id="adminUser">Prince Admin</p>
+      </div>
+      <nav class="admin-nav">
+        <a href="/admin/" class="admin-nav-link" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/admin/vehicles.html" class="admin-nav-link active" data-page="vehicles"><i class="fas fa-car"></i> Vehicles</a>
+        <a href="/admin/add-vehicle.html" class="admin-nav-link" data-page="add-vehicle"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+        <a href="/admin/bookings.html" class="admin-nav-link" data-page="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a>
+        <a href="/admin/customers.html" class="admin-nav-link" data-page="customers"><i class="fas fa-users"></i> Customers</a>
+        <a href="/admin/inquiries.html" class="admin-nav-link" data-page="inquiries"><i class="fas fa-envelope"></i> Inquiries</a>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <a href="/" class="admin-nav-link"><i class="fas fa-globe"></i> View Site</a>
+        <a href="#" class="admin-nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <h1>Manage Vehicles</h1>
+        <a href="/admin/add-vehicle.html" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Vehicle</a>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="admin-filter-bar glass-card">
+        <select id="filterStatus">
+          <option value="">All Statuses</option>
+          <option value="available">Available</option>
+          <option value="sold">Sold</option>
+          <option value="leased">Leased</option>
+          <option value="rented">Rented</option>
+          <option value="reserved">Reserved</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+        <input type="text" id="filterSearch" placeholder="Search vehicles...">
+        <button class="btn btn-outline btn-sm" onclick="filterVehicles()">Filter</button>
+      </div>
+
+      <!-- Vehicles Table -->
+      <div class="admin-table-wrapper">
+        <table class="admin-table" id="adminVehicles">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Vehicle</th>
+              <th>VIN</th>
+              <th>Price</th>
+              <th>Mileage</th>
+              <th>Status</th>
+              <th>Featured</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="vehicleTableBody">
+            <tr><td colspan="8" class="text-center">Loading vehicles...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Vehicle | Prince Automotive Group LLC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="navbar admin-navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="admin-badge">ADMIN</div>
+      <div class="nav-auth" id="navAuth">
+        <span id="adminName" class="nav-link">Admin</span>
+        <a href="#" onclick="logout()" class="nav-link">Sign Out</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout">
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h3 class="gold-text">ADMIN PANEL</h3>
+        <p class="admin-user" id="adminUser">Prince Admin</p>
+      </div>
+      <nav class="admin-nav">
+        <a href="/admin/" class="admin-nav-link" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/admin/vehicles.html" class="admin-nav-link" data-page="vehicles"><i class="fas fa-car"></i> Vehicles</a>
+        <a href="/admin/add-vehicle.html" class="admin-nav-link active" data-page="add-vehicle"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+        <a href="/admin/bookings.html" class="admin-nav-link" data-page="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a>
+        <a href="/admin/customers.html" class="admin-nav-link" data-page="customers"><i class="fas fa-users"></i> Customers</a>
+        <a href="/admin/inquiries.html" class="admin-nav-link" data-page="inquiries"><i class="fas fa-envelope"></i> Inquiries</a>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <a href="/" class="admin-nav-link"><i class="fas fa-globe"></i> View Site</a>
+        <a href="#" class="admin-nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <h1 id="formTitle">Add New Vehicle</h1>
+        <a href="/admin/vehicles.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Vehicles</a>
+      </div>
+
+      <form id="vehicleForm" class="admin-form glass-card" enctype="multipart/form-data">
+        <input type="hidden" id="vehicleId" name="id" value="">
+
+        <!-- Basic Info Section -->
+        <div class="form-section">
+          <h3 class="gold-text">VEHICLE INFORMATION</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="year">Year *</label>
+              <input type="number" id="year" name="year" required min="2015" max="2026" placeholder="2024">
+            </div>
+            <div class="form-group">
+              <label for="make">Make *</label>
+              <input type="text" id="make" name="make" required placeholder="Mercedes-Benz">
+            </div>
+            <div class="form-group">
+              <label for="model">Model *</label>
+              <input type="text" id="model" name="model" required placeholder="S-Class">
+            </div>
+            <div class="form-group">
+              <label for="trim">Trim</label>
+              <input type="text" id="trim" name="trim" placeholder="S580 4MATIC">
+            </div>
+            <div class="form-group">
+              <label for="vin">VIN</label>
+              <input type="text" id="vin" name="vin" placeholder="Vehicle Identification Number" maxlength="17">
+            </div>
+            <div class="form-group">
+              <label for="mileage">Mileage</label>
+              <input type="number" id="mileage" name="mileage" placeholder="10000">
+            </div>
+            <div class="form-group">
+              <label for="exteriorColor">Exterior Color</label>
+              <input type="text" id="exteriorColor" name="exterior_color" placeholder="Black">
+            </div>
+            <div class="form-group">
+              <label for="interiorColor">Interior Color</label>
+              <input type="text" id="interiorColor" name="interior_color" placeholder="Black Leather">
+            </div>
+            <div class="form-group">
+              <label for="bodyType">Body Type</label>
+              <select id="bodyType" name="body_type">
+                <option value="">Select...</option>
+                <option value="sedan">Sedan</option>
+                <option value="suv">SUV</option>
+                <option value="coupe">Coupe</option>
+                <option value="convertible">Convertible</option>
+                <option value="truck">Truck</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="wagon">Wagon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fuelType">Fuel Type</label>
+              <select id="fuelType" name="fuel_type">
+                <option value="">Select...</option>
+                <option value="Gasoline">Gasoline</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Plug-In Hybrid">Plug-In Hybrid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="transmission">Transmission</label>
+              <select id="transmission" name="transmission">
+                <option value="">Select...</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+                <option value="DCT">Dual-Clutch</option>
+                <option value="CVT">CVT</option>
+                <option value="Single-Speed">Single-Speed (EV)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="engine">Engine</label>
+              <input type="text" id="engine" name="engine" placeholder="4.0L V8 Twin-Turbo">
+            </div>
+            <div class="form-group">
+              <label for="drivetrain">Drivetrain</label>
+              <select id="drivetrain" name="drivetrain">
+                <option value="">Select...</option>
+                <option value="AWD">AWD</option>
+                <option value="4WD">4WD</option>
+                <option value="FWD">FWD</option>
+                <option value="RWD">RWD</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div class="form-section">
+          <h3 class="gold-text">PRICING</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="price">Sale Price ($) *</label>
+              <input type="number" id="price" name="price" required step="100" placeholder="94900">
+            </div>
+            <div class="form-group">
+              <label for="leaseMonthly">Lease Monthly ($)</label>
+              <input type="number" id="leaseMonthly" name="lease_monthly" step="1" placeholder="1389">
+            </div>
+            <div class="form-group">
+              <label for="rentalDaily">Rental Daily ($)</label>
+              <input type="number" id="rentalDaily" name="rental_daily" step="1" placeholder="299">
+            </div>
+            <div class="form-group">
+              <label for="rentalWeekly">Rental Weekly ($)</label>
+              <input type="number" id="rentalWeekly" name="rental_weekly" step="1" placeholder="1799">
+            </div>
+            <div class="form-group">
+              <label for="rentalMonthly">Rental Monthly ($)</label>
+              <input type="number" id="rentalMonthly" name="rental_monthly" step="1" placeholder="5999">
+            </div>
+          </div>
+        </div>
+
+        <!-- Description & Features -->
+        <div class="form-section">
+          <h3 class="gold-text">DETAILS</h3>
+          <div class="form-group full-width">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe this vehicle in detail..."></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label for="features">Features (one per line)</label>
+            <textarea id="features" name="features" rows="6" placeholder="Burmester 4D Sound System&#10;Head-Up Display&#10;Massaging Seats&#10;Night Vision"></textarea>
+          </div>
+        </div>
+
+        <!-- Status & Options -->
+        <div class="form-section">
+          <h3 class="gold-text">STATUS</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="status">Vehicle Status</label>
+              <select id="status" name="status">
+                <option value="available">Available</option>
+                <option value="reserved">Reserved</option>
+                <option value="sold">Sold</option>
+                <option value="leased">Leased</option>
+                <option value="rented">Rented</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="featured" name="featured" value="1">
+                <span>Featured Vehicle</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-section">
+          <h3 class="gold-text">IMAGES</h3>
+          <div class="image-upload-area" id="imageUploadArea">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Drag & drop images here or click to browse</p>
+            <p class="upload-hint">Upload up to 10 images (JPG, PNG, WebP)</p>
+            <input type="file" id="vehicleImages" name="images" multiple accept="image/*" onchange="handleImageUpload(this)">
+          </div>
+          <div class="image-preview-grid" id="imagePreview"></div>
+          <!-- For editing: show existing images -->
+          <div class="existing-images" id="existingImages"></div>
+        </div>
+
+        <!-- Submit -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+            <i class="fas fa-save"></i> SAVE VEHICLE
+          </button>
+          <a href="/admin/vehicles.html" class="btn btn-outline btn-lg">CANCEL</a>
+        </div>
+      </form>
+    </main>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

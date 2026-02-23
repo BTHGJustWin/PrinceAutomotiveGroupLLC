@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Rentals | Prince Automotive Group LLC</title>
+  <meta name="description" content="Luxury vehicle rentals from 1 week to 6 months. Premium cars, flexible terms, white-glove service. Reserve your dream ride today.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link active">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Hero Section -->
+    <section class="page-header page-header-tall">
+      <div class="container">
+        <h1 class="page-title">PREMIUM VEHICLE RENTALS</h1>
+        <p class="page-subtitle">Luxury on your terms. From a weekend getaway to a six-month commitment.</p>
+        <div class="section-divider"></div>
+      </div>
+    </section>
+
+    <!-- How Rental Works -->
+    <section class="section section-rental-steps">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Getting Started</span>
+          <h2 class="section-title">HOW IT WORKS</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="steps-grid steps-grid-4">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>BROWSE FLEET</h3>
+            <p>Explore our collection of available luxury rental vehicles below.</p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>SELECT DURATION</h3>
+            <p>Choose from 1 week to 6 months based on your needs.</p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>RESERVE ONLINE</h3>
+            <p>Create an account and reserve your vehicle in minutes.</p>
+          </div>
+          <div class="step-connector" aria-hidden="true"></div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>PICK UP &amp; DRIVE</h3>
+            <p>Complete your paperwork, get your keys, and hit the road.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Duration Pricing Cards -->
+    <section class="section section-rental-pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Flexible Terms</span>
+          <h2 class="section-title">RENTAL DURATIONS</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="rental-pricing-grid">
+          <div class="rental-pricing-card">
+            <h4>1 Week</h4>
+            <div class="rental-price">Starting from<br><strong>$1,499</strong><span>/week</span></div>
+            <ul class="rental-includes">
+              <li><i class="fas fa-check"></i> 1,500 miles included</li>
+              <li><i class="fas fa-check"></i> Standard insurance</li>
+              <li><i class="fas fa-check"></i> 24/7 roadside assistance</li>
+            </ul>
+            <a href="#rentalFleet" class="btn btn-outline btn-block">VIEW FLEET</a>
+          </div>
+          <div class="rental-pricing-card">
+            <h4>2 Weeks</h4>
+            <div class="rental-price">Starting from<br><strong>$2,799</strong><span>/2 weeks</span></div>
+            <ul class="rental-includes">
+              <li><i class="fas fa-check"></i> 3,000 miles included</li>
+              <li><i class="fas fa-check"></i> Standard insurance</li>
+              <li><i class="fas fa-check"></i> 24/7 roadside assistance</li>
+            </ul>
+            <a href="#rentalFleet" class="btn btn-outline btn-block">VIEW FLEET</a>
+          </div>
+          <div class="rental-pricing-card featured">
+            <div class="popular-badge">Most Popular</div>
+            <h4>1 Month</h4>
+            <div class="rental-price">Starting from<br><strong>$4,999</strong><span>/month</span></div>
+            <ul class="rental-includes">
+              <li><i class="fas fa-check"></i> 5,000 miles included</li>
+              <li><i class="fas fa-check"></i> Standard insurance</li>
+              <li><i class="fas fa-check"></i> 24/7 roadside assistance</li>
+              <li><i class="fas fa-check"></i> Regular maintenance</li>
+            </ul>
+            <a href="#rentalFleet" class="btn btn-gold btn-block">VIEW FLEET</a>
+          </div>
+          <div class="rental-pricing-card">
+            <h4>3 Months</h4>
+            <div class="rental-price"><strong>Custom Quote</strong></div>
+            <ul class="rental-includes">
+              <li><i class="fas fa-check"></i> High mileage allowance</li>
+              <li><i class="fas fa-check"></i> Standard insurance</li>
+              <li><i class="fas fa-check"></i> 24/7 roadside assistance</li>
+              <li><i class="fas fa-check"></i> Regular maintenance</li>
+              <li><i class="fas fa-check"></i> Credit check required</li>
+            </ul>
+            <a href="/contact.html" class="btn btn-outline btn-block">CONTACT US</a>
+          </div>
+          <div class="rental-pricing-card">
+            <h4>6 Months</h4>
+            <div class="rental-price"><strong>Custom Quote</strong></div>
+            <ul class="rental-includes">
+              <li><i class="fas fa-check"></i> Best per-month rate</li>
+              <li><i class="fas fa-check"></i> Standard insurance</li>
+              <li><i class="fas fa-check"></i> 24/7 roadside assistance</li>
+              <li><i class="fas fa-check"></i> Regular maintenance</li>
+              <li><i class="fas fa-check"></i> Rent-to-own eligible</li>
+            </ul>
+            <a href="/contact.html" class="btn btn-outline btn-block">CONTACT US</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Rental Fleet -->
+    <section class="section section-rental-fleet" id="rentalFleet">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Available Now</span>
+          <h2 class="section-title">RENTAL FLEET</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="vehicle-grid" id="rentalFleetGrid">
+          <!-- Populated by JavaScript -->
+          <div class="loading-state" id="rentalLoading">
+            <div class="loading-spinner"></div>
+            <p>Loading available rentals...</p>
+          </div>
+        </div>
+        <div class="empty-state" id="rentalEmpty" style="display: none;">
+          <i class="fas fa-car-side"></i>
+          <h3>Fleet Update in Progress</h3>
+          <p>Our rental fleet is being updated. Contact us directly for current availability.</p>
+          <a href="/contact.html" class="btn btn-gold">CONTACT US</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rental Requirements -->
+    <section class="section section-requirements">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Before You Book</span>
+          <h2 class="section-title">RENTAL REQUIREMENTS</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="requirements-grid">
+          <div class="requirement-item">
+            <div class="requirement-icon"><i class="fas fa-id-card"></i></div>
+            <h4>Valid Driver's License</h4>
+            <p>A current, valid driver's license is required for all renters.</p>
+          </div>
+          <div class="requirement-item">
+            <div class="requirement-icon"><i class="fas fa-user-check"></i></div>
+            <h4>Must Be 21 or Older</h4>
+            <p>All renters must be at least 21 years of age.</p>
+          </div>
+          <div class="requirement-item">
+            <div class="requirement-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Full Coverage Insurance</h4>
+            <p>Proof of full coverage auto insurance is required.</p>
+          </div>
+          <div class="requirement-item">
+            <div class="requirement-icon"><i class="fas fa-credit-card"></i></div>
+            <h4>Security Deposit</h4>
+            <p>A refundable security deposit is required at time of pickup.</p>
+          </div>
+          <div class="requirement-item">
+            <div class="requirement-icon"><i class="fas fa-file-alt"></i></div>
+            <h4>Credit Check (1+ Month)</h4>
+            <p>Rentals exceeding one month require a credit check.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="section section-faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Questions?</span>
+          <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is included in the rental?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer" aria-hidden="true">
+              <p>All rentals include standard insurance coverage, 24/7 roadside assistance, and regular maintenance. Fuel and additional insurance options are the renter's responsibility.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I extend my rental?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer" aria-hidden="true">
+              <p>Yes! Contact us at least 48 hours before your return date to discuss extension options.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is the cancellation policy?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer" aria-hidden="true">
+              <p>Cancellations made 48+ hours before pickup receive a full refund. Within 48 hours, a 50% charge applies.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Is there a mileage limit?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer" aria-hidden="true">
+              <p>Weekly rentals include 1,500 miles. Monthly rentals include 5,000 miles. Additional miles are $0.35/mile.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I rent-to-own?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer" aria-hidden="true">
+              <p>We offer flexible arrangements. If you love your rental, talk to us about transitioning to a purchase or lease.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="section section-cta-strip">
+      <div class="cta-gold-border"></div>
+      <div class="container">
+        <h2>READY TO RESERVE?</h2>
+        <p>Sign in or create an account to get started with your luxury rental experience.</p>
+        <div class="cta-buttons">
+          <a href="/login.html" class="btn btn-gold btn-lg">SIGN IN</a>
+          <a href="/register.html" class="btn btn-outline btn-lg">CREATE ACCOUNT</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/vehicles.js"></script>
+  <script src="/js/booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Prince Automotive Group LLC</title>
+  <meta name="description" content="Create your Prince Automotive Group account for exclusive access to reservations, financing applications, and personalized service.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-page">
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <section class="auth-section">
+      <div class="auth-container auth-container-wide">
+        <div class="glass-card auth-card auth-card-wide">
+          <div class="auth-logo">
+            <span class="gold-text shimmer auth-brand">PRINCE</span>
+          </div>
+          <h2 class="auth-title">Create Your Account</h2>
+          <p class="auth-subtitle">Join Prince Automotive Group for exclusive access to reservations, financing applications, and more.</p>
+
+          <!-- Error Message -->
+          <div class="auth-error" id="registerError" style="display: none;" role="alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="registerErrorText">An error occurred. Please try again.</span>
+          </div>
+
+          <form id="registerForm" class="auth-form">
+            <!-- Personal Info -->
+            <div class="form-section-label">Personal Information</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="regFirstName">First Name <span class="required">*</span></label>
+                <input type="text" id="regFirstName" name="firstName" required placeholder="First name" autocomplete="given-name">
+              </div>
+              <div class="form-group">
+                <label for="regLastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="regLastName" name="lastName" required placeholder="Last name" autocomplete="family-name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="regEmail">Email <span class="required">*</span></label>
+                <input type="email" id="regEmail" name="email" required placeholder="you@example.com" autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label for="regPhone">Phone <span class="required">*</span></label>
+                <input type="tel" id="regPhone" name="phone" required placeholder="(555) 000-0000" autocomplete="tel">
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-section-label">Address</div>
+            <div class="form-group">
+              <label for="regAddress">Street Address <span class="required">*</span></label>
+              <input type="text" id="regAddress" name="address" required placeholder="123 Main Street" autocomplete="street-address">
+            </div>
+            <div class="form-row form-row-3">
+              <div class="form-group">
+                <label for="regCity">City <span class="required">*</span></label>
+                <input type="text" id="regCity" name="city" required placeholder="City" autocomplete="address-level2">
+              </div>
+              <div class="form-group">
+                <label for="regState">State <span class="required">*</span></label>
+                <input type="text" id="regState" name="state" required placeholder="State" maxlength="2" autocomplete="address-level1">
+              </div>
+              <div class="form-group">
+                <label for="regZip">ZIP Code <span class="required">*</span></label>
+                <input type="text" id="regZip" name="zipCode" required placeholder="ZIP" maxlength="10" autocomplete="postal-code">
+              </div>
+            </div>
+
+            <!-- Driver's License -->
+            <div class="form-section-label">Identification</div>
+            <div class="form-group">
+              <label for="regLicense">Driver's License Number <span class="required">*</span></label>
+              <input type="text" id="regLicense" name="driversLicense" required placeholder="Driver's license number">
+            </div>
+
+            <!-- Password -->
+            <div class="form-section-label">Security</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="regPassword">Password <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" id="regPassword" name="password" required placeholder="Min. 8 characters" minlength="8" autocomplete="new-password">
+                  <button type="button" class="password-toggle" data-target="regPassword" aria-label="Toggle password visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="regConfirmPassword">Confirm Password <span class="required">*</span></label>
+                <div class="input-icon-wrap">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" id="regConfirmPassword" name="confirmPassword" required placeholder="Re-enter password" minlength="8" autocomplete="new-password">
+                  <button type="button" class="password-toggle" data-target="regConfirmPassword" aria-label="Toggle password visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="password-requirements">
+              <p><small>Password must be at least 8 characters and include uppercase, lowercase, and a number.</small></p>
+            </div>
+
+            <!-- Terms -->
+            <div class="form-group">
+              <label class="checkbox-wrap terms-checkbox">
+                <input type="checkbox" name="terms" id="regTerms" required>
+                <span class="checkmark"></span>
+                I agree to the <a href="#" class="gold-link">Terms of Service</a> and <a href="#" class="gold-link">Privacy Policy</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-block btn-lg" id="registerSubmit">
+              <span class="btn-text">CREATE ACCOUNT</span>
+              <span class="btn-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Creating account...</span>
+            </button>
+          </form>
+
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <p class="auth-switch">
+            Already have an account? <a href="/login.html" class="gold-link">SIGN IN</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Details | Prince Automotive Group LLC</title>
+  <meta name="description" content="View detailed information about this luxury vehicle including specifications, features, pricing, and availability.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link active">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+          <a href="/inventory.html">Inventory</a>
+          <span class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+          <span class="breadcrumb-current" id="breadcrumbVehicle">Vehicle Details</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" id="vehicleDetailLoading">
+      <div class="loading-spinner"></div>
+      <p>Loading vehicle details...</p>
+    </div>
+
+    <!-- Vehicle Detail Content -->
+    <section class="section section-vehicle-detail" id="vehicleDetail" style="display: none;">
+      <div class="container">
+        <div class="vehicle-detail-layout">
+          <!-- Image Gallery -->
+          <div class="vehicle-gallery">
+            <div class="gallery-main">
+              <img src="/images/placeholder-vehicle.jpg" alt="Vehicle image" id="galleryMain" class="gallery-main-img">
+              <span class="vehicle-status-badge" id="vehicleStatusBadge">Available</span>
+            </div>
+            <div class="gallery-thumbnails" id="galleryThumbnails">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Vehicle Info -->
+          <div class="vehicle-info">
+            <h1 class="vehicle-detail-title" id="vehicleTitle">Loading...</h1>
+            <div class="vehicle-detail-price gold-text" id="vehiclePrice">--</div>
+            <div class="vehicle-detail-meta">
+              <div class="meta-item">
+                <span class="meta-label">VIN</span>
+                <span class="meta-value" id="vehicleVin">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Mileage</span>
+                <span class="meta-value" id="vehicleMileage">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Exterior</span>
+                <span class="meta-value" id="vehicleExterior">--</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Interior</span>
+                <span class="meta-value" id="vehicleInterior">--</span>
+              </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="detail-tabs">
+              <button class="tab-btn active" data-tab="overview" aria-selected="true">OVERVIEW</button>
+              <button class="tab-btn" data-tab="features" aria-selected="false">FEATURES</button>
+              <button class="tab-btn" data-tab="pricing" aria-selected="false">PRICING</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="tab-overview">
+              <p class="vehicle-description" id="vehicleDescription">--</p>
+              <div class="specs-grid" id="vehicleSpecs">
+                <div class="spec-item">
+                  <span class="spec-label">Year</span>
+                  <span class="spec-value" data-spec="year">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Make</span>
+                  <span class="spec-value" data-spec="make">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Model</span>
+                  <span class="spec-value" data-spec="model">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Mileage</span>
+                  <span class="spec-value" data-spec="mileage">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Exterior Color</span>
+                  <span class="spec-value" data-spec="exteriorColor">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Interior Color</span>
+                  <span class="spec-value" data-spec="interiorColor">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Engine</span>
+                  <span class="spec-value" data-spec="engine">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Transmission</span>
+                  <span class="spec-value" data-spec="transmission">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Drivetrain</span>
+                  <span class="spec-value" data-spec="drivetrain">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Fuel Type</span>
+                  <span class="spec-value" data-spec="fuelType">--</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Body Type</span>
+                  <span class="spec-value" data-spec="bodyType">--</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div class="tab-content" id="tab-features" style="display: none;">
+              <ul class="features-list" id="vehicleFeatures">
+                <!-- Populated by JavaScript -->
+                <li class="loading-text">Loading features...</li>
+              </ul>
+            </div>
+
+            <!-- Pricing Tab -->
+            <div class="tab-content" id="tab-pricing" style="display: none;">
+              <div class="pricing-detail">
+                <div class="pricing-row pricing-highlight">
+                  <span class="pricing-label">Purchase Price</span>
+                  <span class="pricing-value gold-text" id="pricingPurchase">--</span>
+                </div>
+                <div class="pricing-row">
+                  <span class="pricing-label">Estimated Lease (Monthly)</span>
+                  <span class="pricing-value" id="pricingLease">--</span>
+                </div>
+                <div class="pricing-divider"></div>
+                <h4 class="pricing-section-title">Rental Rates</h4>
+                <table class="pricing-table">
+                  <thead>
+                    <tr>
+                      <th>Duration</th>
+                      <th>Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pricingRentals">
+                    <tr>
+                      <td>Daily</td>
+                      <td id="pricingDaily">--</td>
+                    </tr>
+                    <tr>
+                      <td>Weekly</td>
+                      <td id="pricingWeekly">--</td>
+                    </tr>
+                    <tr>
+                      <td>Monthly</td>
+                      <td id="pricingMonthly">--</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="vehicle-actions">
+              <button class="btn btn-gold btn-block" id="btnInquire" data-action="inquire">
+                <i class="fas fa-envelope"></i> INQUIRE ABOUT THIS VEHICLE
+              </button>
+              <button class="btn btn-outline btn-block" id="btnTestDrive" data-action="testdrive">
+                <i class="fas fa-car"></i> SCHEDULE TEST DRIVE
+              </button>
+              <button class="btn btn-outline btn-block" id="btnFinancing" data-action="financing">
+                <i class="fas fa-file-invoice-dollar"></i> APPLY FOR FINANCING
+              </button>
+              <button class="btn btn-gold-outline btn-block" id="btnRental" data-action="rental" style="display: none;">
+                <i class="fas fa-calendar-check"></i> RESERVE FOR RENTAL
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Error State -->
+    <div class="empty-state" id="vehicleError" style="display: none;">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Vehicle Not Found</h3>
+      <p>The vehicle you're looking for may no longer be available.</p>
+      <a href="/inventory.html" class="btn btn-gold">BROWSE INVENTORY</a>
+    </div>
+
+    <!-- Inquiry Modal -->
+    <div class="modal" id="inquiryModal" role="dialog" aria-labelledby="inquiryModalTitle" aria-hidden="true">
+      <div class="modal-overlay" data-dismiss="modal"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="inquiryModalTitle">Vehicle Inquiry</h3>
+          <button class="modal-close" data-dismiss="modal" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="inquiryForm">
+            <input type="hidden" name="vehicleId" id="inquiryVehicleId">
+            <div class="form-group">
+              <label for="inquiryName">Full Name <span class="required">*</span></label>
+              <input type="text" id="inquiryName" name="name" required placeholder="Your full name">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inquiryEmail">Email <span class="required">*</span></label>
+                <input type="email" id="inquiryEmail" name="email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="inquiryPhone">Phone <span class="required">*</span></label>
+                <input type="tel" id="inquiryPhone" name="phone" required placeholder="(555) 000-0000">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inquiryType">Inquiry Type</label>
+              <select id="inquiryType" name="inquiryType">
+                <option value="general">General Inquiry</option>
+                <option value="purchase">Purchase Interest</option>
+                <option value="lease">Lease Interest</option>
+                <option value="rental">Rental Interest</option>
+                <option value="testdrive">Schedule Test Drive</option>
+                <option value="tradein">Trade-In Valuation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inquiryMessage">Message</label>
+              <textarea id="inquiryMessage" name="message" rows="4" placeholder="Tell us what you'd like to know..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-gold btn-block">SEND INQUIRY</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rental Reservation Modal -->
+    <div class="modal" id="rentalModal" role="dialog" aria-labelledby="rentalModalTitle" aria-hidden="true">
+      <div class="modal-overlay" data-dismiss="modal"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="rentalModalTitle">Reserve This Vehicle</h3>
+          <button class="modal-close" data-dismiss="modal" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="rentalForm">
+            <input type="hidden" name="vehicleId" id="rentalVehicleId">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="rentalStartDate">Start Date <span class="required">*</span></label>
+                <input type="date" id="rentalStartDate" name="startDate" required>
+              </div>
+              <div class="form-group">
+                <label for="rentalEndDate">End Date <span class="required">*</span></label>
+                <input type="date" id="rentalEndDate" name="endDate" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="rentalDuration">Duration</label>
+              <select id="rentalDuration" name="duration">
+                <option value="1_week">1 Week</option>
+                <option value="2_weeks">2 Weeks</option>
+                <option value="1_month">1 Month</option>
+                <option value="3_months">3 Months</option>
+                <option value="6_months">6 Months</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="rentalNotes">Additional Notes</label>
+              <textarea id="rentalNotes" name="notes" rows="3" placeholder="Any special requirements or requests..."></textarea>
+            </div>
+            <div class="rental-summary" id="rentalSummary" style="display: none;">
+              <h4>Reservation Summary</h4>
+              <div class="summary-row">
+                <span>Vehicle</span>
+                <span id="summaryVehicle">--</span>
+              </div>
+              <div class="summary-row">
+                <span>Duration</span>
+                <span id="summaryDuration">--</span>
+              </div>
+              <div class="summary-row summary-total">
+                <span>Estimated Total</span>
+                <span id="summaryTotal" class="gold-text">--</span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-gold btn-block">RESERVE NOW</button>
+              <p class="form-note">You must be signed in to complete your reservation. <a href="/login.html">Sign in</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/vehicles.js"></script>
+  <script src="/js/booking.js"></script>
+</body>
+</html>

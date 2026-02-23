@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Prince Automotive Group LLC</title>
+  <meta name="description" content="Sign in to your Prince Automotive Group account to manage reservations, bookings, and financing applications.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-page">
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login active">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <section class="auth-section">
+      <div class="auth-container">
+        <div class="glass-card auth-card">
+          <div class="auth-logo">
+            <span class="gold-text shimmer auth-brand">PRINCE</span>
+          </div>
+          <h2 class="auth-title">Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to access your account</p>
+
+          <!-- Error Message -->
+          <div class="auth-error" id="loginError" style="display: none;" role="alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="loginErrorText">Invalid email or password.</span>
+          </div>
+
+          <form id="loginForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <div class="input-icon-wrap">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" name="email" required placeholder="you@example.com" autocomplete="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <div class="input-icon-wrap">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" name="password" required placeholder="Enter your password" autocomplete="current-password">
+                <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-options">
+              <label class="checkbox-wrap">
+                <input type="checkbox" name="remember" id="loginRemember">
+                <span class="checkmark"></span>
+                Remember me
+              </label>
+              <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-gold btn-block btn-lg" id="loginSubmit">
+              <span class="btn-text">SIGN IN</span>
+              <span class="btn-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
+            </button>
+          </form>
+
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <p class="auth-switch">
+            Don't have an account? <a href="/register.html" class="gold-link">CREATE ACCOUNT</a>
+          </p>
+
+          <p class="admin-hint">Admin? Use your admin credentials to sign in.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

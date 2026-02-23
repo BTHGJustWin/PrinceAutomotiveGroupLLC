@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Collection | Prince Automotive Group LLC</title>
+  <meta name="description" content="Browse our curated collection of ultra luxury pre-owned vehicles. Hand-selected, inspected, and priced with complete transparency.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link active">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">OUR COLLECTION</h1>
+        <p class="page-subtitle">Hand-selected luxury vehicles, each one inspected and approved to meet the Prince standard</p>
+        <div class="section-divider"></div>
+      </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="section section-search">
+      <div class="container">
+        <div class="search-bar">
+          <div class="search-input-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="vehicleSearch" name="vehicleSearch" placeholder="Search by make, model, or keyword..." aria-label="Search vehicles">
+          </div>
+          <button class="btn btn-gold" id="searchBtn">SEARCH</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inventory Content -->
+    <section class="section section-inventory">
+      <div class="container">
+        <div class="inventory-layout">
+          <!-- Filter Sidebar -->
+          <aside class="filter-sidebar" id="filterSidebar">
+            <div class="filter-header">
+              <h3><i class="fas fa-filter"></i> Filters</h3>
+              <button class="filter-close" id="filterClose" aria-label="Close filters"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="filterForm" class="filter-form">
+              <div class="filter-group">
+                <label for="filterMake">Make</label>
+                <select id="filterMake" name="make">
+                  <option value="">All Makes</option>
+                  <!-- Populated by JavaScript -->
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterBodyType">Body Type</label>
+                <select id="filterBodyType" name="bodyType">
+                  <option value="">All Types</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="SUV">SUV</option>
+                  <option value="Coupe">Coupe</option>
+                  <option value="Convertible">Convertible</option>
+                  <option value="Truck">Truck</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Price Range</label>
+                <div class="filter-range">
+                  <input type="number" id="filterPriceMin" name="priceMin" placeholder="Min" min="0" aria-label="Minimum price">
+                  <span class="range-separator">to</span>
+                  <input type="number" id="filterPriceMax" name="priceMax" placeholder="Max" min="0" aria-label="Maximum price">
+                </div>
+              </div>
+              <div class="filter-group">
+                <label>Year Range</label>
+                <div class="filter-range">
+                  <input type="number" id="filterYearMin" name="yearMin" placeholder="Min" min="2000" max="2026" aria-label="Minimum year">
+                  <span class="range-separator">to</span>
+                  <input type="number" id="filterYearMax" name="yearMax" placeholder="Max" min="2000" max="2026" aria-label="Maximum year">
+                </div>
+              </div>
+              <div class="filter-group">
+                <label for="filterSort">Sort By</label>
+                <select id="filterSort" name="sort">
+                  <option value="">Default</option>
+                  <option value="price_asc">Price: Low to High</option>
+                  <option value="price_desc">Price: High to Low</option>
+                  <option value="year_desc">Newest First</option>
+                  <option value="mileage_asc">Mileage: Low to High</option>
+                </select>
+              </div>
+              <div class="filter-actions">
+                <button type="submit" class="btn btn-gold btn-block">APPLY FILTERS</button>
+                <button type="button" class="btn-link" id="clearFilters">Clear All</button>
+              </div>
+            </form>
+          </aside>
+
+          <!-- Vehicle Grid -->
+          <div class="inventory-main">
+            <div class="inventory-toolbar">
+              <p class="results-count" id="resultsCount">Loading vehicles...</p>
+              <button class="btn btn-outline btn-sm filter-toggle-btn" id="filterToggle">
+                <i class="fas fa-filter"></i> Filters
+              </button>
+            </div>
+
+            <div class="vehicle-grid" id="vehicleGrid">
+              <!-- Populated by JavaScript -->
+              <div class="loading-state" id="vehicleLoading">
+                <div class="loading-spinner"></div>
+                <p>Loading our collection...</p>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="vehicleEmpty" style="display: none;">
+              <i class="fas fa-car-side"></i>
+              <h3>No Vehicles Found</h3>
+              <p>We couldn't find any vehicles matching your criteria. Try adjusting your filters or search terms.</p>
+              <button class="btn btn-outline" id="resetSearch">Reset Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="section section-cta-strip">
+      <div class="cta-gold-border"></div>
+      <div class="container">
+        <h2>DON'T SEE WHAT YOU'RE LOOKING FOR?</h2>
+        <p>Tell us your dream car and we'll find it for you. Our sourcing network spans the entire country.</p>
+        <div class="cta-buttons">
+          <a href="/contact.html" class="btn btn-gold">CONTACT US</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/vehicles.js"></script>
+</body>
+</html>

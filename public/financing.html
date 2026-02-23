@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financing Options | Prince Automotive Group LLC</title>
+  <meta name="description" content="Flexible financing options for your luxury vehicle. Bring your own financing or explore Prince Preferred rates. Quick approval, competitive terms.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link active">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">FINANCING OPTIONS</h1>
+        <p class="page-subtitle">Flexible paths to ownership. Your deal, your way.</p>
+        <div class="section-divider"></div>
+      </div>
+    </section>
+
+    <!-- Two-Path Layout -->
+    <section class="section section-financing-paths">
+      <div class="container">
+        <div class="financing-paths-grid">
+          <!-- Path A -->
+          <div class="financing-path-card">
+            <div class="path-icon"><i class="fas fa-university"></i></div>
+            <h3>BRING YOUR OWN FINANCING</h3>
+            <p class="path-description">
+              Already pre-approved through your bank or credit union? Excellent. We welcome outside financing
+              and make the process seamless. Simply bring your approval letter and we'll handle the rest.
+            </p>
+            <h4>What to Bring:</h4>
+            <ul class="path-list">
+              <li><i class="fas fa-check gold-text"></i> Pre-approval letter from your lender</li>
+              <li><i class="fas fa-check gold-text"></i> Valid government-issued ID</li>
+              <li><i class="fas fa-check gold-text"></i> Proof of insurance</li>
+              <li><i class="fas fa-check gold-text"></i> Down payment (if applicable)</li>
+            </ul>
+            <h4>Benefits:</h4>
+            <ul class="path-list">
+              <li><i class="fas fa-star gold-text"></i> Use your existing banking relationship</li>
+              <li><i class="fas fa-star gold-text"></i> Potentially lower rates from your institution</li>
+              <li><i class="fas fa-star gold-text"></i> Quick closing process</li>
+              <li><i class="fas fa-star gold-text"></i> No additional credit inquiry from us</li>
+            </ul>
+          </div>
+
+          <!-- Divider -->
+          <div class="path-divider">
+            <span>OR</span>
+          </div>
+
+          <!-- Path B -->
+          <div class="financing-path-card featured">
+            <div class="popular-badge">Recommended</div>
+            <div class="path-icon"><i class="fas fa-crown"></i></div>
+            <h3>PRINCE PREFERRED FINANCING</h3>
+            <p class="path-description">
+              Let us do the work. Our lending partners specialize in luxury vehicle financing and offer
+              competitive rates with flexible terms. Apply in minutes and get a decision fast.
+            </p>
+            <h4>What We Offer:</h4>
+            <ul class="path-list">
+              <li><i class="fas fa-check gold-text"></i> Competitive rates from multiple lenders</li>
+              <li><i class="fas fa-check gold-text"></i> Terms from 24 to 72 months</li>
+              <li><i class="fas fa-check gold-text"></i> Quick pre-qualification (no hard pull)</li>
+              <li><i class="fas fa-check gold-text"></i> Decision within 24 hours</li>
+            </ul>
+            <h4>Benefits:</h4>
+            <ul class="path-list">
+              <li><i class="fas fa-star gold-text"></i> One application, multiple lender options</li>
+              <li><i class="fas fa-star gold-text"></i> We negotiate on your behalf</li>
+              <li><i class="fas fa-star gold-text"></i> Flexible down payment options</li>
+              <li><i class="fas fa-star gold-text"></i> All credit situations considered</li>
+            </ul>
+            <a href="#prequalForm" class="btn btn-gold btn-block">PRE-QUALIFY NOW</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Monthly Payment Estimator -->
+    <section class="section section-calculator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Plan Ahead</span>
+          <h2 class="section-title">PAYMENT ESTIMATOR</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="calculator-card">
+          <form id="calculatorForm" class="calculator-form">
+            <div class="calc-inputs">
+              <div class="form-group">
+                <label for="calcPrice">Vehicle Price ($)</label>
+                <input type="number" id="calcPrice" name="vehiclePrice" placeholder="75,000" min="0" step="500" required>
+              </div>
+              <div class="form-group">
+                <label for="calcDown">Down Payment ($)</label>
+                <input type="number" id="calcDown" name="downPayment" placeholder="10,000" min="0" step="500">
+              </div>
+              <div class="form-group">
+                <label for="calcRate">Interest Rate (%)</label>
+                <input type="number" id="calcRate" name="interestRate" placeholder="6.9" min="0" max="30" step="0.1" value="6.9">
+              </div>
+              <div class="form-group">
+                <label for="calcTerm">Loan Term</label>
+                <select id="calcTerm" name="loanTerm">
+                  <option value="24">24 Months</option>
+                  <option value="36">36 Months</option>
+                  <option value="48">48 Months</option>
+                  <option value="60" selected>60 Months</option>
+                  <option value="72">72 Months</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-gold">CALCULATE</button>
+          </form>
+          <div class="calculator-result" id="calculatorResult" style="display: none;">
+            <p class="result-label">Estimated Monthly Payment</p>
+            <p class="result-value gold-text" id="monthlyPayment">$0</p>
+            <p class="result-note">*Estimate only. Actual payment may vary based on credit approval, taxes, and fees.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You Need -->
+    <section class="section section-documents">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Be Prepared</span>
+          <h2 class="section-title">WHAT YOU'LL NEED</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="documents-grid">
+          <div class="document-item">
+            <div class="document-icon"><i class="fas fa-id-card"></i></div>
+            <h4>Valid ID</h4>
+            <p>Government-issued photo identification</p>
+          </div>
+          <div class="document-item">
+            <div class="document-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h4>Proof of Income</h4>
+            <p>Last 2 pay stubs or income documentation</p>
+          </div>
+          <div class="document-item">
+            <div class="document-icon"><i class="fas fa-home"></i></div>
+            <h4>Proof of Residence</h4>
+            <p>Utility bill or bank statement with current address</p>
+          </div>
+          <div class="document-item">
+            <div class="document-icon"><i class="fas fa-users"></i></div>
+            <h4>References</h4>
+            <p>2-3 personal or professional references</p>
+          </div>
+          <div class="document-item">
+            <div class="document-icon"><i class="fas fa-exchange-alt"></i></div>
+            <h4>Trade-In Docs</h4>
+            <p>Title and registration (if trading in a vehicle)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pre-Qualification Form -->
+    <section class="section section-prequal" id="prequalForm">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Get Started</span>
+          <h2 class="section-title">PRE-QUALIFICATION APPLICATION</h2>
+          <p class="section-subtitle">No hard credit pull. Get an answer within 24 hours.</p>
+          <div class="section-divider"></div>
+        </div>
+        <div class="prequal-card">
+          <form id="financingForm" class="prequal-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="finFirstName">First Name <span class="required">*</span></label>
+                <input type="text" id="finFirstName" name="firstName" required placeholder="First name">
+              </div>
+              <div class="form-group">
+                <label for="finLastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="finLastName" name="lastName" required placeholder="Last name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="finEmail">Email <span class="required">*</span></label>
+                <input type="email" id="finEmail" name="email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="finPhone">Phone <span class="required">*</span></label>
+                <input type="tel" id="finPhone" name="phone" required placeholder="(555) 000-0000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="finEmployment">Employment Status <span class="required">*</span></label>
+                <select id="finEmployment" name="employmentStatus" required>
+                  <option value="">Select status</option>
+                  <option value="employed">Employed Full-Time</option>
+                  <option value="part-time">Employed Part-Time</option>
+                  <option value="self-employed">Self-Employed</option>
+                  <option value="retired">Retired</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="finIncome">Monthly Income <span class="required">*</span></label>
+                <input type="number" id="finIncome" name="monthlyIncome" required placeholder="Monthly gross income" min="0">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="finVehicle">Desired Vehicle or Budget</label>
+                <input type="text" id="finVehicle" name="desiredVehicle" placeholder="e.g. 2023 Mercedes S-Class or $60,000 budget">
+              </div>
+              <div class="form-group">
+                <label for="finDownPayment">Down Payment Available</label>
+                <input type="number" id="finDownPayment" name="downPayment" placeholder="Amount available" min="0">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="finCredit">Credit Score Range <span class="required">*</span></label>
+              <select id="finCredit" name="creditRange" required>
+                <option value="">Select range</option>
+                <option value="excellent">Excellent (750+)</option>
+                <option value="good">Good (700-749)</option>
+                <option value="fair">Fair (650-699)</option>
+                <option value="below">Below 650</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-gold btn-lg">SUBMIT APPLICATION</button>
+              <p class="form-note">By submitting, you agree to be contacted regarding your financing inquiry. This is not a binding application.</p>
+            </div>
+          </form>
+          <div class="form-success" id="financingSuccess" style="display: none;">
+            <i class="fas fa-check-circle gold-text"></i>
+            <h3>Application Received!</h3>
+            <p>Thank you for your interest. A member of our team will review your application and contact you within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="section section-cta-strip">
+      <div class="cta-gold-border"></div>
+      <div class="container">
+        <h2>QUESTIONS ABOUT FINANCING?</h2>
+        <p>Our team is ready to help you explore every option and find the perfect payment plan.</p>
+        <div class="cta-buttons">
+          <a href="/contact.html" class="btn btn-gold btn-lg">CONTACT US</a>
+          <a href="/inventory.html" class="btn btn-outline btn-lg">BROWSE INVENTORY</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // Payment Calculator
+    document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+      const down = parseFloat(document.getElementById('calcDown').value) || 0;
+      const rate = parseFloat(document.getElementById('calcRate').value) || 0;
+      const term = parseInt(document.getElementById('calcTerm').value) || 60;
+
+      const principal = price - down;
+      if (principal <= 0) {
+        document.getElementById('monthlyPayment').textContent = '$0';
+        document.getElementById('calculatorResult').style.display = 'block';
+        return;
+      }
+
+      const monthlyRate = rate / 100 / 12;
+      let payment;
+      if (monthlyRate === 0) {
+        payment = principal / term;
+      } else {
+        payment = principal * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+      }
+
+      document.getElementById('monthlyPayment').textContent = '$' + payment.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      document.getElementById('calculatorResult').style.display = 'block';
+    });
+
+    // Pre-Qualification Form
+    document.getElementById('financingForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/api/admin/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.firstName + ' ' + data.lastName,
+            email: data.email,
+            phone: data.phone,
+            inquiryType: 'financing',
+            message: `Employment: ${data.employmentStatus}, Income: $${data.monthlyIncome}/mo, Vehicle/Budget: ${data.desiredVehicle || 'Not specified'}, Down Payment: $${data.downPayment || '0'}, Credit: ${data.creditRange}`
+          })
+        });
+
+        if (response.ok) {
+          this.style.display = 'none';
+          document.getElementById('financingSuccess').style.display = 'block';
+        } else {
+          alert('There was an error submitting your application. Please try again or contact us directly.');
+        }
+      } catch (error) {
+        alert('There was an error submitting your application. Please try again or contact us directly.');
+      }
+    });
+  </script>
+</body>
+</html>

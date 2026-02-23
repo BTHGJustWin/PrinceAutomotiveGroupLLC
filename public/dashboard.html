@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Prince Automotive Group LLC</title>
+  <meta name="description" content="Manage your bookings, profile, and account with Prince Automotive Group.">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text shimmer">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/inventory.html" class="nav-link">Inventory</a>
+        <a href="/rentals.html" class="nav-link">Rentals</a>
+        <a href="/financing.html" class="nav-link">Financing</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <div class="nav-auth" id="navAuth">
+          <a href="/login.html" class="nav-link nav-login">Sign In</a>
+        </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="app">
+    <!-- Dashboard Layout -->
+    <section class="section section-dashboard">
+      <div class="container">
+        <div class="dashboard-layout">
+          <!-- Sidebar -->
+          <aside class="dashboard-sidebar">
+            <div class="sidebar-user">
+              <div class="user-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <h3 class="user-name" id="sidebarUserName">Loading...</h3>
+              <p class="user-email" id="sidebarUserEmail">--</p>
+            </div>
+            <nav class="sidebar-nav" aria-label="Dashboard navigation">
+              <a href="#dashboard" class="sidebar-link active" data-tab="dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+              </a>
+              <a href="#bookings" class="sidebar-link" data-tab="bookings">
+                <i class="fas fa-calendar-alt"></i> My Bookings
+              </a>
+              <a href="#profile" class="sidebar-link" data-tab="profile">
+                <i class="fas fa-user-edit"></i> Profile
+              </a>
+              <a href="#" class="sidebar-link" id="sidebarSignOut">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+              </a>
+            </nav>
+          </aside>
+
+          <!-- Main Content -->
+          <main class="dashboard-main">
+            <!-- Loading State -->
+            <div class="loading-state" id="dashboardLoading">
+              <div class="loading-spinner"></div>
+              <p>Loading your dashboard...</p>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div class="dashboard-tab active" id="tab-dashboard" style="display: none;">
+              <div class="dashboard-header">
+                <h2>Welcome back, <span id="dashboardUserName" class="gold-text">--</span></h2>
+                <p>Here's an overview of your account activity.</p>
+              </div>
+
+              <!-- Stats Cards -->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="statActiveBookings">0</span>
+                    <span class="stat-label">Active Bookings</span>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon"><i class="fas fa-car"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="statTotalRentals">0</span>
+                    <span class="stat-label">Total Rentals</span>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="statAccountStatus">Active</span>
+                    <span class="stat-label">Account Status</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Bookings -->
+              <div class="dashboard-section">
+                <div class="section-title-row">
+                  <h3>My Recent Bookings</h3>
+                  <a href="#bookings" class="view-all-link" data-tab="bookings">View All</a>
+                </div>
+                <div class="bookings-table-wrap">
+                  <table class="bookings-table" id="recentBookingsTable">
+                    <thead>
+                      <tr>
+                        <th>Ref #</th>
+                        <th>Vehicle</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Dates</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recentBookingsBody">
+                      <!-- Populated by JavaScript -->
+                    </tbody>
+                  </table>
+                  <div class="empty-state" id="noRecentBookings" style="display: none;">
+                    <i class="fas fa-calendar"></i>
+                    <p>No bookings yet. Start by browsing our collection.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Actions -->
+              <div class="dashboard-section">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                  <a href="/inventory.html" class="quick-action-card">
+                    <i class="fas fa-search"></i>
+                    <span>Browse Inventory</span>
+                  </a>
+                  <a href="/rentals.html" class="quick-action-card">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Book a Rental</span>
+                  </a>
+                  <a href="/contact.html" class="quick-action-card">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact Us</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bookings Tab -->
+            <div class="dashboard-tab" id="tab-bookings" style="display: none;">
+              <div class="dashboard-header">
+                <h2>My Bookings</h2>
+                <p>View and manage all your reservations and bookings.</p>
+              </div>
+
+              <div class="bookings-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+              </div>
+
+              <div class="bookings-list" id="allBookingsList">
+                <!-- Populated by JavaScript -->
+                <div class="loading-state" id="bookingsLoading">
+                  <div class="loading-spinner"></div>
+                  <p>Loading your bookings...</p>
+                </div>
+              </div>
+
+              <div class="empty-state" id="noBookings" style="display: none;">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No Bookings Found</h3>
+                <p>You haven't made any bookings yet. Browse our collection to get started.</p>
+                <a href="/inventory.html" class="btn btn-gold">BROWSE INVENTORY</a>
+              </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div class="dashboard-tab" id="tab-profile" style="display: none;">
+              <div class="dashboard-header">
+                <h2>My Profile</h2>
+                <p>Update your personal information and account details.</p>
+              </div>
+
+              <div class="profile-card">
+                <!-- Success Message -->
+                <div class="profile-success" id="profileSuccess" style="display: none;" role="alert">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Profile updated successfully!</span>
+                </div>
+
+                <!-- Error Message -->
+                <div class="auth-error" id="profileError" style="display: none;" role="alert">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span id="profileErrorText">An error occurred.</span>
+                </div>
+
+                <form id="profileForm" class="profile-form">
+                  <div class="form-section-label">Personal Information</div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="profileFirstName">First Name</label>
+                      <input type="text" id="profileFirstName" name="firstName" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                      <label for="profileLastName">Last Name</label>
+                      <input type="text" id="profileLastName" name="lastName" placeholder="Last name">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="profileEmail">Email</label>
+                      <input type="email" id="profileEmail" name="email" placeholder="Email" disabled>
+                      <small class="form-hint">Email cannot be changed</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="profilePhone">Phone</label>
+                      <input type="tel" id="profilePhone" name="phone" placeholder="(555) 000-0000">
+                    </div>
+                  </div>
+
+                  <div class="form-section-label">Address</div>
+                  <div class="form-group">
+                    <label for="profileAddress">Street Address</label>
+                    <input type="text" id="profileAddress" name="address" placeholder="123 Main Street">
+                  </div>
+                  <div class="form-row form-row-3">
+                    <div class="form-group">
+                      <label for="profileCity">City</label>
+                      <input type="text" id="profileCity" name="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                      <label for="profileState">State</label>
+                      <input type="text" id="profileState" name="state" placeholder="State" maxlength="2">
+                    </div>
+                    <div class="form-group">
+                      <label for="profileZip">ZIP Code</label>
+                      <input type="text" id="profileZip" name="zipCode" placeholder="ZIP" maxlength="10">
+                    </div>
+                  </div>
+
+                  <div class="form-section-label">Identification</div>
+                  <div class="form-group">
+                    <label for="profileLicense">Driver's License Number</label>
+                    <input type="text" id="profileLicense" name="driversLicense" placeholder="Driver's license number">
+                  </div>
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-gold" id="profileSubmit">
+                      <span class="btn-text">SAVE CHANGES</span>
+                      <span class="btn-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Saving...</span>
+                    </button>
+                    <button type="button" class="btn btn-outline" id="profileCancel">CANCEL</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Not Authenticated State -->
+            <div class="empty-state" id="notAuthenticated" style="display: none;">
+              <i class="fas fa-lock"></i>
+              <h3>Authentication Required</h3>
+              <p>Please sign in to access your dashboard.</p>
+              <a href="/login.html" class="btn btn-gold">SIGN IN</a>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Cancel Booking Confirmation Modal -->
+  <div class="modal" id="cancelModal" role="dialog" aria-labelledby="cancelModalTitle" aria-hidden="true">
+    <div class="modal-overlay" data-dismiss="modal"></div>
+    <div class="modal-content modal-content-sm">
+      <div class="modal-header">
+        <h3 id="cancelModalTitle">Cancel Booking</h3>
+        <button class="modal-close" data-dismiss="modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to cancel this booking?</p>
+        <p class="cancel-booking-ref">Booking: <strong id="cancelBookingRef">--</strong></p>
+        <p class="cancel-warning"><i class="fas fa-exclamation-triangle"></i> Cancellations within 48 hours of pickup are subject to a 50% charge.</p>
+        <div class="modal-actions">
+          <button class="btn btn-outline" data-dismiss="modal">KEEP BOOKING</button>
+          <button class="btn btn-danger" id="confirmCancel" data-booking-id="">CANCEL BOOKING</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-accent"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="gold-text shimmer">PRINCE</h3>
+          <p class="footer-tagline">AUTOMOTIVE GROUP LLC</p>
+          <p class="footer-desc">Elevating the pre-owned luxury vehicle experience. Where premium quality meets unmatched service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/inventory.html">View Inventory</a>
+          <a href="/rentals.html">Rental Fleet</a>
+          <a href="/financing.html">Financing Options</a>
+          <a href="/about.html">About Prince</a>
+          <a href="/contact.html">Contact Us</a>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <a href="/inventory.html">Vehicle Sales</a>
+          <a href="/rentals.html">Vehicle Leasing</a>
+          <a href="/rentals.html">Short-Term Rentals</a>
+          <a href="/financing.html">Financing</a>
+          <a href="/contact.html">Trade-In Valuation</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> info@princeautomotivegroupllc.com</p>
+          <p><i class="fas fa-phone"></i> (555) 792-4623</p>
+          <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 7PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> By Appointment</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-divider"></div>
+        <p>&copy; 2025 Prince Automotive Group LLC. All Rights Reserved.</p>
+        <p class="footer-legal">Registered 2025 | princeautomotivegroupllc.com</p>
+      </div>
+    </div>
+    <div class="footer-watermark">PRINCE</div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/booking.js"></script>
+</body>
+</html>
