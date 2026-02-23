@@ -161,7 +161,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Immaculate 2024 Mercedes-Benz S580 4MATIC finished in stunning Black over Black leather. This flagship sedan combines cutting-edge technology with unmatched luxury. Every journey becomes a first-class experience with the Executive Rear Seat Package, Burmester 4D surround sound, and massaging seats front and rear. Night Vision Assist and MBUX Augmented Reality Navigation ensure confident driving in any condition.',
       features: JSON.stringify(['Burmester 4D Sound System', 'Head-Up Display', 'Executive Rear Seat Package', 'Night Vision Assist', 'MBUX Augmented Reality Navigation', 'Massaging Front & Rear Seats', 'Air Balance Package']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1764089859662-7b4773dff85b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1660108384081-62099678489e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1577546311477-67ef792021b7?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -186,7 +190,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Breathtaking 2024 BMW 760i xDrive in Alpine White with sumptuous Cognac Nappa Leather. This ultimate luxury sedan showcases BMW\'s finest craftsmanship. The Sky Lounge Panoramic Roof bathes the cabin in ambient light, while the BMW Theater Screen transforms rear-seat travel into a cinematic experience. Crystal Headlights and Automatic Doors complete the extraordinary presence.',
       features: JSON.stringify(['Bowers & Wilkins Diamond Surround Sound', 'Sky Lounge Panoramic Roof', 'Executive Lounge Seating', 'BMW Theater Screen', 'Automatic Doors', 'Crystal Headlights']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1627936354732-ffbe552799d8?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1759002369921-ba54006bff01?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/flagged/photo-1575790952429-f3204e58396b?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -211,7 +219,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Thrilling 2023 Porsche Cayenne Turbo GT in iconic GT Silver Metallic with Black and Alcantara interior. The most powerful Cayenne ever built delivers an astonishing 631 HP. The Lightweight Sport Package, carbon ceramic brakes, and 22" GT Design Wheels ensure performance that defies the SUV category. Sport Chrono and Sport Exhaust elevate every drive to a track-day experience.',
       features: JSON.stringify(['Sport Chrono Package', 'Carbon Ceramic Brakes (PCCB)', 'Lightweight Sport Package', 'Porsche Dynamic Chassis Control', 'Sport Exhaust System', '22" GT Design Wheels']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1654159866298-e3c8ee93e43b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1699325974549-fd06639650aa?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1696315072523-1bd90867944b?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -236,7 +248,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Majestic 2024 Range Rover Autobiography Long Wheelbase in Santorini Black with opulent Vintage Tan leather. With only 3,800 miles, this near-new masterpiece offers unparalleled luxury. The Executive Class Comfort-Plus Rear Seats recline to first-class airline standards, while the Meridian Signature Sound System creates an immersive audio experience. Pixel LED Headlights and Cabin Air Purification Pro complete the ultimate luxury SUV.',
       features: JSON.stringify(['Meridian Signature Sound System', 'Executive Class Comfort-Plus Rear Seats', 'Pixel LED Headlights', 'All-Terrain Progress Control', 'Cabin Air Purification Pro']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1740954694714-3e8c83f20c04?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1679506640602-0144b3bb5053?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1563458563737-e60b1f1b345f?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -261,7 +277,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Electrifying 2023 Audi RS e-tron GT in striking Daytona Gray with bold Express Red interior. This all-electric grand tourer delivers 637 HP and launches from 0-60 in a breathtaking 3.1 seconds. The carbon roof lowers the center of gravity, while the RS Sport Suspension Plus adapts to every driving scenario. Sustainable luxury at its absolute finest.',
       features: JSON.stringify(['Carbon Roof', 'Bang & Olufsen Premium Sound System', 'Matrix LED Headlights', 'RS Sport Suspension Plus', 'Head-Up Display', 'Carbon Fiber Inlays']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1655126276417-a2427cc1ba20?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1655126275489-2c41cb7f2b74?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1655126277775-f984a7576047?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -286,7 +306,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Commanding 2024 Cadillac Escalade V-Series in Black Raven with Jet Black Semi-Aniline leather. The most powerful Escalade ever, packing a hand-built 682HP supercharged V8. The AKG Studio Reference 36-speaker audio system is the most advanced in any vehicle. Super Cruise enables true hands-free highway driving, while Night Vision and Magnetic Ride Control ensure supreme confidence.',
       features: JSON.stringify(['AKG Studio Reference 36-Speaker System', 'Super Cruise Hands-Free Driving', '682HP Supercharged V8', 'Magnetic Ride Control 4.0', 'Night Vision', '22" Polished Forged Aluminum Wheels']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1574729420434-c2ee5b0a5b03?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1768024175218-5878b8880eab?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1768024175224-db216683d310?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 1
     },
@@ -311,7 +335,11 @@ function seedVehicles(database) {
       drivetrain: 'RWD',
       description: 'Stunning 2024 Lexus LC 500 Convertible in head-turning Infrared with White Semi-Aniline leather. This rolling work of art pairs a glorious naturally-aspirated 5.0L V8 with open-air grand touring capability. The Mark Levinson Reference 21-speaker sound system delivers concert-hall audio, while the Torsen limited-slip differential and Variable Gear Ratio Steering provide genuine sports car dynamics.',
       features: JSON.stringify(['Mark Levinson Reference 21-Speaker Sound', 'Torsen Limited-Slip Differential', 'Variable Gear Ratio Steering', 'Sport Package', 'Carbon Fiber Roof Panel (hardtop)', 'Alcantara Headliner']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1771556907904-073e16b61983?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1771556907938-af4f87462310?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1762095210069-07db3b009eb9?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 0
     },
@@ -336,7 +364,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Remarkable 2023 Tesla Model X Plaid in Ultra White with Cream interior. With 1,020 HP from its tri-motor powertrain, this is one of the fastest SUVs ever made. The iconic Falcon Wing Doors make every entrance unforgettable, while Full Self-Driving Capability represents the cutting edge of autonomous technology. HEPA filtration ensures the cabin air is always pristine.',
       features: JSON.stringify(['Full Self-Driving Capability', 'Falcon Wing Doors', '1,020 HP Tri-Motor Powertrain', '22" Turbine Wheels', 'HEPA Air Filtration System', 'Yoke Steering Wheel', '17" Cinematic Display']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1707002752329-5a4a889f7de9?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1652509197980-9f3d9ac7916e?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1622620645406-3aa46ce15ef2?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 0
     },
@@ -361,7 +393,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Exquisite 2024 Genesis GV80 Coupe 3.5T Sport Prestige in rare Mauna Loa Garnet with Obsidian Black interior. With a mere 2,900 miles, this coupe-SUV combines athletic design with Genesis\' renowned luxury. Road Active Noise Cancellation creates a serene cabin, while the electronic limited-slip differential and Sport+ mode deliver genuine driving excitement. The 22" Dark Sport Wheels complete the aggressive stance.',
       features: JSON.stringify(['Bang & Olufsen 3D Premium Sound', 'Lexicon Sound System', 'Road Active Noise Cancellation', 'Electronic Limited-Slip Differential', 'Sport+ Drive Mode', '22" Dark Sport Wheels', 'Ergo Motion Driver Seat']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1709104761873-24cc12d23b28?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1739950075618-f9ae2f90b0c0?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1741744582317-06860916ad38?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 0
     },
@@ -386,7 +422,11 @@ function seedVehicles(database) {
       drivetrain: 'AWD',
       description: 'Captivating 2024 Maserati Grecale Trofeo in sophisticated Grigio Maratea with passionate Rosso Corallo leather interior. Powered by the MC20-derived Nettuno V6, this Italian luxury SUV combines Maserati\'s racing heritage with everyday versatility. The Sonus Faber High-Premium sound system delivers audiophile-grade music, while Corsa Drive Mode unleashes the full 523 HP. True Italian luxury meets modern performance.',
       features: JSON.stringify(['MC20-derived Nettuno V6 Engine', 'Sonus Faber High-Premium Sound System', 'Highway Assist Pro', 'Corsa Drive Mode', 'Adaptive Matrix LED Headlights', '21" Efesto Dark Forged Wheels']),
-      images: JSON.stringify([]),
+      images: JSON.stringify([
+        'https://images.unsplash.com/photo-1680744764636-60dfa5471940?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1530505849655-e0a1121554a9?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1692966307728-1d615077f813?auto=format&fit=crop&w=1200&q=80'
+      ]),
       status: 'available',
       featured: 0
     }
