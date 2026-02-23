@@ -58,7 +58,7 @@
         <a href="/admin/vehicles.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Vehicles</a>
       </div>
 
-      <form id="vehicleForm" class="admin-form glass-card" enctype="multipart/form-data">
+      <form id="vehicleForm" class="admin-form glass-card">
         <input type="hidden" id="vehicleId" name="id" value="">
 
         <!-- Basic Info Section -->
@@ -213,18 +213,16 @@
           </div>
         </div>
 
-        <!-- Image Upload -->
+        <!-- Image URLs -->
         <div class="form-section">
           <h3 class="gold-text">IMAGES</h3>
-          <div class="image-upload-area" id="imageUploadArea">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>Drag & drop images here or click to browse</p>
-            <p class="upload-hint">Upload up to 10 images (JPG, PNG, WebP)</p>
-            <input type="file" id="vehicleImages" name="images" multiple accept="image/*" onchange="handleImageUpload(this)">
+          <p class="form-hint">Add image URLs from Google Photos, Facebook, or any image hosting site. Upload your photos there first, then paste the links here.</p>
+          <div class="image-url-input-row">
+            <input type="url" id="imageUrlInput" placeholder="Paste image URL here (https://...)" class="form-control">
+            <button type="button" class="btn btn-primary btn-sm" onclick="addImageUrl()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div class="image-preview-grid" id="imagePreview"></div>
-          <!-- For editing: show existing images -->
-          <div class="existing-images" id="existingImages"></div>
+          <input type="hidden" id="imageUrlsData" name="image_urls" value="[]">
         </div>
 
         <!-- Submit -->

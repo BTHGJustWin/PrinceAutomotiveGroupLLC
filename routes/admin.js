@@ -128,16 +128,16 @@ router.get('/vehicles', requireAdmin, (req, res) => {
 });
 
 // -------------------------------------------------------------------------
-// POST /api/admin/vehicles — Add a new vehicle (with image upload)
+// POST /api/admin/vehicles — Add a new vehicle (with image URLs)
 // -------------------------------------------------------------------------
-router.post('/vehicles', requireAdmin, upload.array('images', 10), (req, res) => {
+router.post('/vehicles', requireAdmin, (req, res) => {
   try {
     const db = getDb();
     const {
       year, make, model, trim, vin, exterior_color, interior_color,
       mileage, price, lease_monthly, rental_daily, rental_weekly, rental_monthly,
       body_type, fuel_type, transmission, engine, drivetrain,
-      description, features, status, featured
+      description, features, images, status, featured
     } = req.body;
 
     // Validation
@@ -145,25 +145,25 @@ router.post('/vehicles', requireAdmin, upload.array('images', 10), (req, res) =>
       return res.status(400).json({ error: 'Year, make, and model are required.' });
     }
 
-    // Build images array from uploaded files
-    let imagePaths = [];
-    if (req.files && req.files.length > 0) {
-      imagePaths = req.files.map(f => `/uploads/${f.filename}`);
+    // Handle images — accept array of URLs
+    let imagesJson = '[]';
+    if (images) {
+      if (Array.isArray(images)) {
+        imagesJson = JSON.stringify(images);
+      } else if (typeof images === 'string') {
+        try { JSON.parse(images); imagesJson = images; } catch { imagesJson = '[]'; }
+      }
     }
 
-    // Parse features if it's a string
+    // Parse features
     let featuresJson = '[]';
     if (features) {
-      if (typeof features === 'string') {
-        try {
-          JSON.parse(features); // Validate it's valid JSON
-          featuresJson = features;
-        } catch {
-          // If it's a comma-separated string, convert to array
+      if (Array.isArray(features)) {
+        featuresJson = JSON.stringify(features);
+      } else if (typeof features === 'string') {
+        try { JSON.parse(features); featuresJson = features; } catch {
           featuresJson = JSON.stringify(features.split(',').map(f => f.trim()));
         }
-      } else if (Array.isArray(features)) {
-        featuresJson = JSON.stringify(features);
       }
     }
 
@@ -195,7 +195,7 @@ router.post('/vehicles', requireAdmin, upload.array('images', 10), (req, res) =>
       drivetrain || null,
       description || null,
       featuresJson,
-      JSON.stringify(imagePaths),
+      imagesJson,
       status || 'available',
       featured ? 1 : 0
     );
@@ -220,7 +220,7 @@ router.post('/vehicles', requireAdmin, upload.array('images', 10), (req, res) =>
 // -------------------------------------------------------------------------
 // PUT /api/admin/vehicles/:id — Update a vehicle
 // -------------------------------------------------------------------------
-router.put('/vehicles/:id', requireAdmin, upload.array('images', 10), (req, res) => {
+router.put('/vehicles/:id', requireAdmin, (req, res) => {
   try {
     const db = getDb();
     const vehicleId = req.params.id;
@@ -234,35 +234,28 @@ router.put('/vehicles/:id', requireAdmin, upload.array('images', 10), (req, res)
       year, make, model, trim, vin, exterior_color, interior_color,
       mileage, price, lease_monthly, rental_daily, rental_weekly, rental_monthly,
       body_type, fuel_type, transmission, engine, drivetrain,
-      description, features, status, featured, existing_images
+      description, features, images, status, featured
     } = req.body;
 
-    // Handle images — keep existing + add new uploads
-    let imagePaths = [];
-    if (existing_images) {
-      try {
-        imagePaths = typeof existing_images === 'string' ? JSON.parse(existing_images) : existing_images;
-      } catch {
-        imagePaths = [];
+    // Handle images — accept array of URLs
+    let imagesJson = existing.images || '[]';
+    if (images !== undefined) {
+      if (Array.isArray(images)) {
+        imagesJson = JSON.stringify(images);
+      } else if (typeof images === 'string') {
+        try { JSON.parse(images); imagesJson = images; } catch { /* keep existing */ }
       }
-    }
-    if (req.files && req.files.length > 0) {
-      const newPaths = req.files.map(f => `/uploads/${f.filename}`);
-      imagePaths = imagePaths.concat(newPaths);
     }
 
     // Parse features
     let featuresJson = existing.features || '[]';
     if (features) {
-      if (typeof features === 'string') {
-        try {
-          JSON.parse(features);
-          featuresJson = features;
-        } catch {
+      if (Array.isArray(features)) {
+        featuresJson = JSON.stringify(features);
+      } else if (typeof features === 'string') {
+        try { JSON.parse(features); featuresJson = features; } catch {
           featuresJson = JSON.stringify(features.split(',').map(f => f.trim()));
         }
-      } else if (Array.isArray(features)) {
-        featuresJson = JSON.stringify(features);
       }
     }
 
@@ -296,7 +289,7 @@ router.put('/vehicles/:id', requireAdmin, upload.array('images', 10), (req, res)
       drivetrain || existing.drivetrain,
       description !== undefined ? description : existing.description,
       featuresJson,
-      JSON.stringify(imagePaths),
+      imagesJson,
       status || existing.status,
       featured !== undefined ? (featured ? 1 : 0) : existing.featured,
       vehicleId

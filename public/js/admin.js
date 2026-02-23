@@ -323,19 +323,13 @@ async function loadVehicleForEdit(vehicleId) {
     featuresInput.value = features.join('\n');
   }
 
-  // Show existing images
-  const imagePreview = document.getElementById('imagePreview');
-  if (imagePreview) {
-    const images = typeof vehicle.images === 'string'
-      ? JSON.parse(vehicle.images || '[]')
-      : (vehicle.images || []);
-    imagePreview.innerHTML = images.map(img =>
-      `<div class="preview-image existing-image">
-        <img src="${img}">
-        <span class="preview-label">Current</span>
-      </div>`
-    ).join('');
-  }
+  // Load existing images into the URL array
+  const images = typeof vehicle.images === 'string'
+    ? JSON.parse(vehicle.images || '[]')
+    : (vehicle.images || []);
+  vehicleImageUrls = [...images];
+  renderImagePreviews();
+  updateImageUrlsData();
 }
 
 // ============================================================
@@ -374,95 +368,136 @@ function initAdminVehicleForm() {
     e.preventDefault();
 
     const submitBtn = vehicleForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
+    const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
-    const formData = new FormData(vehicleForm);
+    // Build JSON body instead of FormData (no file uploads)
+    const body = {
+      year: parseInt(document.getElementById('year').value) || null,
+      make: document.getElementById('make').value.trim(),
+      model: document.getElementById('model').value.trim(),
+      trim: document.getElementById('trim').value.trim(),
+      vin: document.getElementById('vin').value.trim(),
+      mileage: parseInt(document.getElementById('mileage').value) || null,
+      exterior_color: document.getElementById('exteriorColor').value.trim(),
+      interior_color: document.getElementById('interiorColor').value.trim(),
+      body_type: document.getElementById('bodyType').value,
+      fuel_type: document.getElementById('fuelType').value,
+      transmission: document.getElementById('transmission').value,
+      engine: document.getElementById('engine').value.trim(),
+      drivetrain: document.getElementById('drivetrain').value,
+      price: parseFloat(document.getElementById('price').value) || null,
+      lease_monthly: parseFloat(document.getElementById('leaseMonthly').value) || null,
+      rental_daily: parseFloat(document.getElementById('rentalDaily').value) || null,
+      rental_weekly: parseFloat(document.getElementById('rentalWeekly').value) || null,
+      rental_monthly: parseFloat(document.getElementById('rentalMonthly').value) || null,
+      description: document.getElementById('description').value.trim(),
+      status: document.getElementById('status').value,
+      featured: document.getElementById('featured').checked ? 1 : 0,
+      images: vehicleImageUrls
+    };
 
-    // Handle features: convert newline-separated text to JSON array
-    const featuresInput = vehicleForm.querySelector('#features, [name="features"]');
+    // Handle features: convert newline-separated text to array
+    const featuresInput = document.getElementById('features');
     if (featuresInput) {
-      const featuresArray = featuresInput.value
+      body.features = featuresInput.value
         .split('\n')
         .map(f => f.trim())
         .filter(f => f.length > 0);
-      formData.set('features', JSON.stringify(featuresArray));
-    }
-
-    // Handle featured checkbox
-    const featuredCheckbox = vehicleForm.querySelector('#featured, [name="featured"]');
-    if (featuredCheckbox) {
-      formData.set('featured', featuredCheckbox.checked ? '1' : '0');
-    }
-
-    // Handle image files
-    const imageInput = vehicleForm.querySelector('#vehicleImages, [name="images"]');
-    if (imageInput && imageInput.files.length > 0) {
-      // Remove the default single entry and add individual files
-      formData.delete('images');
-      Array.from(imageInput.files).forEach(file => {
-        formData.append('images[]', file);
-      });
     }
 
     const vehicleId = vehicleForm.dataset.vehicleId;
     let res;
 
     if (vehicleId) {
-      // Editing existing vehicle
       res = await apiRequest(`/api/admin/vehicles/${vehicleId}`, {
         method: 'PUT',
-        body: formData
+        body: body
       });
     } else {
-      // Adding new vehicle
       res = await apiRequest('/api/admin/vehicles', {
         method: 'POST',
-        body: formData
+        body: body
       });
     }
 
     submitBtn.disabled = false;
-    submitBtn.textContent = originalText;
+    submitBtn.innerHTML = originalText;
 
     if (res) {
       showToast(vehicleId ? 'Vehicle updated successfully!' : 'Vehicle added successfully!', 'success');
       vehicleForm.reset();
       delete vehicleForm.dataset.vehicleId;
-      const formSection = document.getElementById('vehicleFormSection');
-      if (formSection) formSection.style.display = 'none';
-      const imagePreview = document.getElementById('imagePreview');
-      if (imagePreview) imagePreview.innerHTML = '';
-      loadAdminVehicles();
+      vehicleImageUrls = [];
+      renderImagePreviews();
+      // Redirect to vehicles list
+      setTimeout(() => {
+        window.location.href = '/admin/vehicles.html';
+      }, 1000);
     }
   });
 }
 
 // ============================================================
-// IMAGE UPLOAD PREVIEW
+// IMAGE URL MANAGEMENT
 // ============================================================
 
-function handleImageUpload(input) {
+// Global array to track image URLs
+let vehicleImageUrls = [];
+
+function addImageUrl() {
+  const input = document.getElementById('imageUrlInput');
+  if (!input) return;
+
+  const url = input.value.trim();
+  if (!url) {
+    showToast('Please paste an image URL', 'error');
+    return;
+  }
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    showToast('URL must start with http:// or https://', 'error');
+    return;
+  }
+  if (vehicleImageUrls.length >= 10) {
+    showToast('Maximum 10 images allowed', 'error');
+    return;
+  }
+
+  vehicleImageUrls.push(url);
+  input.value = '';
+  renderImagePreviews();
+  updateImageUrlsData();
+}
+
+function removeImageUrl(index) {
+  vehicleImageUrls.splice(index, 1);
+  renderImagePreviews();
+  updateImageUrlsData();
+}
+
+function renderImagePreviews() {
   const preview = document.getElementById('imagePreview');
   if (!preview) return;
 
-  // Clear only new previews, keep existing images
-  preview.querySelectorAll('.preview-image:not(.existing-image)').forEach(el => el.remove());
+  if (vehicleImageUrls.length === 0) {
+    preview.innerHTML = '';
+    return;
+  }
 
-  Array.from(input.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const div = document.createElement('div');
-      div.className = 'preview-image';
-      div.innerHTML = `
-        <img src="${e.target.result}">
-        <button type="button" class="preview-remove" onclick="this.parentElement.remove()">&times;</button>
-      `;
-      preview.appendChild(div);
-    };
-    reader.readAsDataURL(file);
-  });
+  preview.innerHTML = vehicleImageUrls.map((url, i) =>
+    `<div class="preview-image">
+      <img src="${url}" alt="Image ${i + 1}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'padding:10px;text-align:center;font-size:0.7rem;color:#999;\\'>Image failed to load</div>'">
+      <button type="button" class="preview-remove" onclick="removeImageUrl(${i})" title="Remove">&times;</button>
+    </div>`
+  ).join('');
+}
+
+function updateImageUrlsData() {
+  const hidden = document.getElementById('imageUrlsData');
+  if (hidden) {
+    hidden.value = JSON.stringify(vehicleImageUrls);
+  }
 }
 
 // ============================================================
