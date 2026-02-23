@@ -864,14 +864,15 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
 }
 .vehicle-card-image {
   position: relative;
-  height: 240px;
+  height: 260px;
   overflow: hidden;
-  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+  background: #0a0a0a;
 }
 .vehicle-card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
   transition: transform 0.5s ease;
 }
 .vehicle-card:hover .vehicle-card-image img { transform: scale(1.05); }
@@ -1006,11 +1007,13 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   border: 1px solid rgba(212,175,55,0.1);
   margin-bottom: 15px;
   height: 450px;
+  background: #0a0a0a;
 }
 .gallery-main img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
 }
 .gallery-thumbs {
   display: flex;
@@ -2735,7 +2738,7 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   .section { padding: 50px 0; }
   .btn { padding: 12px 30px; font-size: 0.75rem; }
   .btn-lg { padding: 14px 35px; }
-  .vehicle-card-image { height: 200px; }
+  .vehicle-card-image { height: 220px; }
   .duration-grid { grid-template-columns: 1fr; }
   .booking-header { flex-direction: column; gap: 8px; align-items: flex-start; }
   .modal-content { width: 95%; }

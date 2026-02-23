@@ -65,8 +65,8 @@ async function initInventoryPage() {
     });
   }
 
-  // Handle sort dropdown
-  const sortSelect = document.getElementById('sortSelect');
+  // Handle sort dropdown (inside filter form)
+  const sortSelect = document.getElementById('filterSort');
   if (sortSelect) {
     sortSelect.addEventListener('change', function () {
       currentSort = this.value;
@@ -74,15 +74,54 @@ async function initInventoryPage() {
     });
   }
 
-  // Handle search form
-  const searchForm = document.getElementById('searchForm');
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput && searchInput.value.trim()) {
+  // Handle search button and input
+  const searchBtn = document.getElementById('searchBtn');
+  const searchInput = document.getElementById('vehicleSearch');
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', function () {
+      if (searchInput.value.trim()) {
         searchVehicles(searchInput.value.trim());
+      } else {
+        fetchAndRenderVehicles();
       }
+    });
+    searchInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (searchInput.value.trim()) {
+          searchVehicles(searchInput.value.trim());
+        } else {
+          fetchAndRenderVehicles();
+        }
+      }
+    });
+  }
+
+  // Handle filter sidebar toggle (mobile)
+  const filterToggle = document.getElementById('filterToggle');
+  const filterSidebar = document.getElementById('filterSidebar');
+  const filterClose = document.getElementById('filterClose');
+  if (filterToggle && filterSidebar) {
+    filterToggle.addEventListener('click', function () {
+      filterSidebar.classList.toggle('active');
+    });
+  }
+  if (filterClose && filterSidebar) {
+    filterClose.addEventListener('click', function () {
+      filterSidebar.classList.remove('active');
+    });
+  }
+
+  // Handle reset search button
+  const resetSearch = document.getElementById('resetSearch');
+  if (resetSearch) {
+    resetSearch.addEventListener('click', function () {
+      if (searchInput) searchInput.value = '';
+      const filterForm = document.getElementById('filterForm');
+      if (filterForm) filterForm.reset();
+      currentFilters = {};
+      currentSort = '';
+      fetchAndRenderVehicles();
     });
   }
 }
@@ -159,7 +198,7 @@ async function fetchAndRenderVehicles() {
   const data = await apiRequest(url);
   const vehicles = Array.isArray(data) ? data : (data && data.vehicles ? data.vehicles : []);
 
-  const emptyState = document.getElementById('emptyState');
+  const emptyState = document.getElementById('vehicleEmpty');
 
   if (vehicles.length === 0) {
     vehicleGrid.innerHTML = '';
@@ -180,7 +219,7 @@ async function fetchAndRenderVehicles() {
   }
 
   // Update result count
-  const resultCount = document.getElementById('resultCount');
+  const resultCount = document.getElementById('resultsCount');
   if (resultCount) {
     resultCount.textContent = `${vehicles.length} vehicle${vehicles.length !== 1 ? 's' : ''} found`;
   }
@@ -200,7 +239,7 @@ async function searchVehicles(query) {
   const data = await apiRequest(`/api/vehicles/search?q=${encodeURIComponent(query)}`);
   const vehicles = Array.isArray(data) ? data : (data && data.vehicles ? data.vehicles : []);
 
-  const emptyState = document.getElementById('emptyState');
+  const emptyState = document.getElementById('vehicleEmpty');
 
   if (vehicles.length === 0) {
     vehicleGrid.innerHTML = '';
@@ -221,7 +260,7 @@ async function searchVehicles(query) {
   }
 
   // Update result count
-  const resultCount = document.getElementById('resultCount');
+  const resultCount = document.getElementById('resultsCount');
   if (resultCount) {
     resultCount.textContent = `${vehicles.length} result${vehicles.length !== 1 ? 's' : ''} for "${query}"`;
   }
@@ -233,46 +272,70 @@ async function searchVehicles(query) {
 
 async function initVehicleDetailPage() {
   const vehicleDetail = document.getElementById('vehicleDetail');
+  const loadingEl = document.getElementById('vehicleDetailLoading');
+  const errorEl = document.getElementById('vehicleError');
   if (!vehicleDetail) return;
 
   const vehicleId = getQueryParam('id');
   if (!vehicleId) {
-    vehicleDetail.innerHTML = `
-      <div class="empty-state">
-        <i class="fas fa-exclamation-triangle"></i>
-        <h3>Vehicle Not Found</h3>
-        <p>No vehicle ID was specified.</p>
-        <a href="/inventory.html" class="btn btn-primary">Browse Inventory</a>
-      </div>
-    `;
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'block';
     return;
   }
 
-  // Show loading
-  vehicleDetail.innerHTML = `
-    <div class="loading-spinner">
-      <i class="fas fa-spinner fa-spin"></i>
-      <p>Loading vehicle details...</p>
-    </div>
-  `;
-
   const vehicle = await apiRequest(`/api/vehicles/${vehicleId}`);
   if (!vehicle) {
-    vehicleDetail.innerHTML = `
-      <div class="empty-state">
-        <i class="fas fa-exclamation-triangle"></i>
-        <h3>Vehicle Not Found</h3>
-        <p>This vehicle may no longer be available.</p>
-        <a href="/inventory.html" class="btn btn-primary">Browse Inventory</a>
-      </div>
-    `;
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'block';
     return;
   }
 
   // Handle nested data structure
   const v = vehicle.vehicle || vehicle;
+
+  // Hide loading, show detail section
+  if (loadingEl) loadingEl.style.display = 'none';
+  vehicleDetail.style.display = 'block';
+
   renderVehicleDetail(v);
   initDetailTabs();
+  initDetailButtons();
+}
+
+function initDetailButtons() {
+  const btnInquire = document.getElementById('btnInquire');
+  if (btnInquire) {
+    btnInquire.addEventListener('click', function () {
+      const select = document.getElementById('inquiryType');
+      if (select) select.value = 'general';
+      openModal('inquiryModal');
+    });
+  }
+
+  const btnTestDrive = document.getElementById('btnTestDrive');
+  if (btnTestDrive) {
+    btnTestDrive.addEventListener('click', function () {
+      const select = document.getElementById('inquiryType');
+      if (select) select.value = 'testdrive';
+      openModal('inquiryModal');
+    });
+  }
+
+  const btnFinancing = document.getElementById('btnFinancing');
+  if (btnFinancing) {
+    btnFinancing.addEventListener('click', function () {
+      const vehicleDetail = document.getElementById('vehicleDetail');
+      const vehicleId = vehicleDetail ? vehicleDetail.dataset.vehicleId : '';
+      window.location.href = `/financing.html?vehicle=${vehicleId}`;
+    });
+  }
+
+  const btnRental = document.getElementById('btnRental');
+  if (btnRental) {
+    btnRental.addEventListener('click', function () {
+      openModal('rentalModal');
+    });
+  }
 }
 
 function renderVehicleDetail(vehicle) {
@@ -285,72 +348,81 @@ function renderVehicleDetail(vehicle) {
     : (vehicle.features || []);
 
   // Set page title
-  document.title = `${vehicle.year} ${vehicle.make} ${vehicle.model} | Prince Automotive Group LLC`;
+  document.title = `${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} | Prince Automotive Group LLC`;
 
   // Update breadcrumb
-  const breadcrumb = document.getElementById('vehicleBreadcrumb');
+  const breadcrumb = document.getElementById('breadcrumbVehicle');
   if (breadcrumb) {
     breadcrumb.textContent = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
   }
 
-  // Main image gallery
-  const gallery = document.getElementById('vehicleGallery');
-  if (gallery) {
-    const galleryHtml = images.length > 0
-      ? `<div class="gallery-main">
-           <img src="${images[0]}" alt="${vehicle.year} ${vehicle.make} ${vehicle.model}" id="mainImage">
-         </div>
-         <div class="gallery-thumbs">
-           ${images.map((img, i) =>
-             `<img src="${img}" alt="View ${i + 1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="setMainImage('${img}', this)">`
-           ).join('')}
-         </div>`
-      : `<div class="gallery-main">
-           <div class="vehicle-image-placeholder large">
-             <i class="fas fa-car"></i>
-             <span>${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''}</span>
-           </div>
-         </div>`;
-    gallery.innerHTML = galleryHtml;
+  // Main gallery image
+  const galleryMainImg = document.getElementById('galleryMain');
+  if (galleryMainImg && images.length > 0) {
+    galleryMainImg.src = images[0];
+    galleryMainImg.alt = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
   }
 
-  // Vehicle title, price, status
-  const titleEl = document.getElementById('vehicleTitle');
-  if (titleEl) titleEl.textContent = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+  // Gallery thumbnails
+  const thumbContainer = document.getElementById('galleryThumbnails');
+  if (thumbContainer && images.length > 0) {
+    thumbContainer.innerHTML = images.map((img, i) =>
+      `<img src="${img}" alt="View ${i + 1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="setMainImage('${img}', this)">`
+    ).join('');
+  }
 
-  const trimEl = document.getElementById('vehicleTrim');
-  if (trimEl) trimEl.textContent = vehicle.trim || '';
+  // Status badge
+  const statusBadge = document.getElementById('vehicleStatusBadge');
+  if (statusBadge) {
+    statusBadge.textContent = vehicle.status.toUpperCase();
+    statusBadge.className = `vehicle-status-badge badge-${vehicle.status}`;
+  }
+
+  // Vehicle title and price
+  const titleEl = document.getElementById('vehicleTitle');
+  if (titleEl) titleEl.textContent = `${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''}`;
 
   const priceEl = document.getElementById('vehiclePrice');
   if (priceEl) priceEl.textContent = formatPrice(vehicle.price);
 
-  const statusEl = document.getElementById('vehicleStatus');
-  if (statusEl) {
-    statusEl.textContent = vehicle.status.toUpperCase();
-    statusEl.className = `badge badge-status badge-${vehicle.status}`;
+  // Meta items (VIN, Mileage, Exterior, Interior)
+  const vinEl = document.getElementById('vehicleVin');
+  if (vinEl) vinEl.textContent = vehicle.vin || 'N/A';
+
+  const mileageEl = document.getElementById('vehicleMileage');
+  if (mileageEl) mileageEl.textContent = vehicle.mileage ? vehicle.mileage.toLocaleString() + ' mi' : 'N/A';
+
+  const exteriorEl = document.getElementById('vehicleExterior');
+  if (exteriorEl) exteriorEl.textContent = vehicle.exterior_color || 'N/A';
+
+  const interiorEl = document.getElementById('vehicleInterior');
+  if (interiorEl) interiorEl.textContent = vehicle.interior_color || 'N/A';
+
+  // Description
+  const descEl = document.getElementById('vehicleDescription');
+  if (descEl) {
+    descEl.textContent = vehicle.description || 'Contact us for more details about this exceptional vehicle.';
   }
 
-  // Specs grid
-  const specsEl = document.getElementById('vehicleSpecs');
-  if (specsEl) {
-    const specs = [
-      { label: 'Year', value: vehicle.year },
-      { label: 'Make', value: vehicle.make },
-      { label: 'Model', value: vehicle.model },
-      { label: 'Mileage', value: vehicle.mileage ? vehicle.mileage.toLocaleString() + ' miles' : 'N/A' },
-      { label: 'Exterior', value: vehicle.exterior_color || 'N/A' },
-      { label: 'Interior', value: vehicle.interior_color || 'N/A' },
-      { label: 'Engine', value: vehicle.engine || 'N/A' },
-      { label: 'Transmission', value: vehicle.transmission || 'N/A' },
-      { label: 'Drivetrain', value: vehicle.drivetrain || 'N/A' },
-      { label: 'Fuel Type', value: vehicle.fuel_type || 'N/A' },
-      { label: 'Body Type', value: vehicle.body_type || 'N/A' },
-      { label: 'VIN', value: vehicle.vin || 'N/A' }
-    ];
-    specsEl.innerHTML = specs.map(s =>
-      `<div class="spec-item"><span class="spec-label">${s.label}</span><span class="spec-value">${s.value}</span></div>`
-    ).join('');
-  }
+  // Specs grid (populate using data-spec attributes)
+  const specEls = document.querySelectorAll('[data-spec]');
+  const specMap = {
+    year: vehicle.year,
+    make: vehicle.make,
+    model: vehicle.model,
+    mileage: vehicle.mileage ? vehicle.mileage.toLocaleString() + ' miles' : 'N/A',
+    exteriorColor: vehicle.exterior_color || 'N/A',
+    interiorColor: vehicle.interior_color || 'N/A',
+    engine: vehicle.engine || 'N/A',
+    transmission: vehicle.transmission || 'N/A',
+    drivetrain: vehicle.drivetrain || 'N/A',
+    fuelType: vehicle.fuel_type || 'N/A',
+    bodyType: vehicle.body_type || 'N/A'
+  };
+  specEls.forEach(el => {
+    const key = el.dataset.spec;
+    if (specMap[key] !== undefined) el.textContent = specMap[key];
+  });
 
   // Features list
   const featuresEl = document.getElementById('vehicleFeatures');
@@ -364,39 +436,37 @@ function renderVehicleDetail(vehicle) {
     }
   }
 
-  // Description
-  const descEl = document.getElementById('vehicleDescription');
-  if (descEl) {
-    descEl.textContent = vehicle.description || 'Contact us for more details about this exceptional vehicle.';
+  // Pricing tab
+  const pricingPurchase = document.getElementById('pricingPurchase');
+  if (pricingPurchase) pricingPurchase.textContent = formatPrice(vehicle.price);
+
+  const pricingLease = document.getElementById('pricingLease');
+  if (pricingLease) pricingLease.textContent = vehicle.lease_monthly ? formatPrice(vehicle.lease_monthly) + '/mo' : 'Contact Us';
+
+  const pricingDaily = document.getElementById('pricingDaily');
+  if (pricingDaily) pricingDaily.textContent = vehicle.rental_daily ? formatPrice(vehicle.rental_daily) + '/day' : 'Contact Us';
+
+  const pricingWeekly = document.getElementById('pricingWeekly');
+  if (pricingWeekly) pricingWeekly.textContent = vehicle.rental_weekly ? formatPrice(vehicle.rental_weekly) + '/week' : 'Contact Us';
+
+  const pricingMonthly = document.getElementById('pricingMonthly');
+  if (pricingMonthly) pricingMonthly.textContent = vehicle.rental_monthly ? formatPrice(vehicle.rental_monthly) + '/month' : 'Contact Us';
+
+  // Show rental button if rental pricing exists
+  const rentalBtn = document.getElementById('btnRental');
+  if (rentalBtn && (vehicle.rental_daily || vehicle.rental_weekly || vehicle.rental_monthly)) {
+    rentalBtn.style.display = 'block';
   }
 
-  // Pricing table
-  const pricingEl = document.getElementById('pricingTable');
-  if (pricingEl) {
-    pricingEl.innerHTML = `
-      <div class="pricing-card">
-        <h4>PURCHASE</h4>
-        <div class="pricing-amount gold-text">${formatPrice(vehicle.price)}</div>
-        <p>Cash or Financing Available</p>
-      </div>
-      <div class="pricing-card">
-        <h4>LEASE</h4>
-        <div class="pricing-amount gold-text">${vehicle.lease_monthly ? formatPrice(vehicle.lease_monthly) + '/mo' : 'Contact Us'}</div>
-        <p>Flexible Terms Available</p>
-      </div>
-      <div class="pricing-card">
-        <h4>RENT</h4>
-        <div class="pricing-amount gold-text">${vehicle.rental_daily ? formatPrice(vehicle.rental_daily) + '/day' : 'Contact Us'}</div>
-        <p>${vehicle.rental_weekly ? formatPrice(vehicle.rental_weekly) + '/week' : ''}${vehicle.rental_weekly && vehicle.rental_monthly ? ' &bull; ' : ''}${vehicle.rental_monthly ? formatPrice(vehicle.rental_monthly) + '/month' : ''}</p>
-      </div>
-    `;
-  }
+  // Store vehicle ID for inquiry/booking forms
+  const vehicleDetail = document.getElementById('vehicleDetail');
+  if (vehicleDetail) vehicleDetail.dataset.vehicleId = vehicle.id;
 
-  // Store vehicle ID for booking forms
-  const detailEl = document.getElementById('vehicleDetail');
-  if (detailEl) {
-    detailEl.dataset.vehicleId = vehicle.id;
-  }
+  const inquiryVehicleId = document.getElementById('inquiryVehicleId');
+  if (inquiryVehicleId) inquiryVehicleId.value = vehicle.id;
+
+  const rentalVehicleId = document.getElementById('rentalVehicleId');
+  if (rentalVehicleId) rentalVehicleId.value = vehicle.id;
 }
 
 // ============================================================
@@ -404,7 +474,7 @@ function renderVehicleDetail(vehicle) {
 // ============================================================
 
 function initDetailTabs() {
-  const tabBtns = document.querySelectorAll('.tab-btn, [data-tab]');
+  const tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
   if (tabBtns.length === 0) return;
 
   tabBtns.forEach(btn => {
@@ -413,15 +483,19 @@ function initDetailTabs() {
       if (!targetTab) return;
 
       // Remove active from all tabs and tab buttons
-      tabBtns.forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content, .tab-panel').forEach(panel => {
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-content').forEach(panel => {
         panel.classList.remove('active');
         panel.style.display = 'none';
       });
 
-      // Activate the clicked tab
+      // Activate the clicked tab — HTML IDs are "tab-overview", "tab-features", "tab-pricing"
       this.classList.add('active');
-      const targetPanel = document.getElementById(targetTab);
+      this.setAttribute('aria-selected', 'true');
+      const targetPanel = document.getElementById('tab-' + targetTab);
       if (targetPanel) {
         targetPanel.classList.add('active');
         targetPanel.style.display = 'block';
