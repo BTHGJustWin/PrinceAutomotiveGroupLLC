@@ -79,6 +79,11 @@ function startServer() {
   });
 }
 
-startServer();
+// On Vercel, just init DB and export. Locally, start the server.
+if (process.env.VERCEL) {
+  initDatabase();
+} else {
+  startServer();
+}
 
 module.exports = app;

@@ -2,7 +2,10 @@ const Database = require('better-sqlite3');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
-const DB_PATH = path.join(__dirname, 'prince_automotive.db');
+// Use /tmp on Vercel (serverless, read-only filesystem except /tmp)
+const DB_PATH = process.env.VERCEL
+  ? path.join('/tmp', 'prince_automotive.db')
+  : path.join(__dirname, 'prince_automotive.db');
 
 let db;
 
