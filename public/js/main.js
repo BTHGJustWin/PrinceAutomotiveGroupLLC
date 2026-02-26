@@ -530,7 +530,7 @@ function initContactForm() {
 // ============================================================
 
 function setMainImage(src, thumbEl) {
-  const mainImage = document.getElementById('mainImage');
+  const mainImage = document.getElementById('galleryMain');
   if (mainImage) {
     mainImage.src = src;
     mainImage.alt = 'Vehicle Image';

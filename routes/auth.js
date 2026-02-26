@@ -193,4 +193,94 @@ router.put('/profile', requireAuth, (req, res) => {
   }
 });
 
+// -------------------------------------------------------------------------
+// PUT /api/auth/change-email
+// -------------------------------------------------------------------------
+router.put('/change-email', requireAuth, (req, res) => {
+  try {
+    const { current_password, new_email } = req.body;
+
+    if (!current_password || !new_email) {
+      return res.status(400).json({ error: 'Current password and new email are required.' });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(new_email)) {
+      return res.status(400).json({ error: 'Please provide a valid email address.' });
+    }
+
+    const db = getDb();
+
+    // Fetch user with password to verify
+    const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Verify current password
+    const validPassword = bcrypt.compareSync(current_password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Current password is incorrect.' });
+    }
+
+    // Check if new email is already taken
+    const normalizedEmail = new_email.toLowerCase().trim();
+    const existing = db.prepare('SELECT id FROM users WHERE email = ? AND id != ?').get(normalizedEmail, req.user.id);
+    if (existing) {
+      return res.status(409).json({ error: 'An account with this email already exists.' });
+    }
+
+    db.prepare('UPDATE users SET email = ? WHERE id = ?').run(normalizedEmail, req.user.id);
+
+    res.json({ message: 'Email updated successfully.', email: normalizedEmail });
+  } catch (err) {
+    console.error('[AUTH] Change email error:', err);
+    res.status(500).json({ error: 'Failed to update email.' });
+  }
+});
+
+// -------------------------------------------------------------------------
+// PUT /api/auth/change-password
+// -------------------------------------------------------------------------
+router.put('/change-password', requireAuth, (req, res) => {
+  try {
+    const { current_password, new_password } = req.body;
+
+    if (!current_password || !new_password) {
+      return res.status(400).json({ error: 'Current password and new password are required.' });
+    }
+
+    if (new_password.length < 8) {
+      return res.status(400).json({ error: 'New password must be at least 8 characters long.' });
+    }
+
+    if (current_password === new_password) {
+      return res.status(400).json({ error: 'New password must be different from current password.' });
+    }
+
+    const db = getDb();
+
+    // Fetch user with password to verify
+    const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Verify current password
+    const validPassword = bcrypt.compareSync(current_password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Current password is incorrect.' });
+    }
+
+    // Hash and save new password
+    const hashedPassword = bcrypt.hashSync(new_password, 12);
+    db.prepare('UPDATE users SET password = ? WHERE id = ?').run(hashedPassword, req.user.id);
+
+    res.json({ message: 'Password updated successfully.' });
+  } catch (err) {
+    console.error('[AUTH] Change password error:', err);
+    res.status(500).json({ error: 'Failed to update password.' });
+  }
+});
+
 module.exports = router;

@@ -36,6 +36,27 @@ const upload = multer({
 });
 
 // -------------------------------------------------------------------------
+// POST /api/admin/upload — Upload vehicle images (up to 10 at once)
+// -------------------------------------------------------------------------
+router.post('/upload', requireAdmin, upload.array('images', 10), (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No images uploaded.' });
+    }
+
+    const urls = req.files.map(file => `/uploads/${file.filename}`);
+
+    res.json({
+      message: `${req.files.length} image(s) uploaded successfully.`,
+      urls
+    });
+  } catch (err) {
+    console.error('[ADMIN] Upload error:', err);
+    res.status(500).json({ error: 'Failed to upload images.' });
+  }
+});
+
+// -------------------------------------------------------------------------
 // GET /api/admin/stats — Dashboard statistics
 // -------------------------------------------------------------------------
 router.get('/stats', requireAdmin, (req, res) => {

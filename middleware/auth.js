@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { getDb } = require('../database');
 
-const JWT_SECRET = 'prince-automotive-secret-key-2025';
+// Use env var, fall back to a random secret per process (forces re-login on restart if no .env)
+const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
 const JWT_EXPIRES_IN = '7d';
 
 /**

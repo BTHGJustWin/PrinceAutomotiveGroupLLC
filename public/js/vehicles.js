@@ -154,9 +154,21 @@ function collectFiltersAndFetch() {
     const formData = new FormData(filterForm);
     currentFilters = {};
 
+    // Map form field names to API parameter names
+    const fieldMap = {
+      make: 'make',
+      bodyType: 'body_type',
+      priceMin: 'min_price',
+      priceMax: 'max_price',
+      yearMin: 'min_year',
+      yearMax: 'max_year',
+      sort: 'sort'
+    };
+
     for (const [key, value] of formData.entries()) {
-      if (value && value.trim()) {
-        currentFilters[key] = value.trim();
+      if (value && value.trim() && key !== 'sort') {
+        const apiKey = fieldMap[key] || key;
+        currentFilters[apiKey] = value.trim();
       }
     }
   }

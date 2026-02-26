@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Account Settings | Prince Automotive Group LLC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="navbar admin-navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-prince gold-text">PRINCE</span>
+        <span class="logo-sub">AUTOMOTIVE GROUP</span>
+      </a>
+      <div class="admin-badge">ADMIN</div>
+      <div class="nav-auth" id="navAuth">
+        <span id="adminName" class="nav-link">Admin</span>
+        <a href="#" onclick="logout()" class="nav-link">Sign Out</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout">
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <h3 class="gold-text">ADMIN PANEL</h3>
+        <p class="admin-user" id="adminUser">Prince Admin</p>
+      </div>
+      <nav class="admin-nav">
+        <a href="/admin/" class="admin-nav-link" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/admin/vehicles.html" class="admin-nav-link" data-page="vehicles"><i class="fas fa-car"></i> Vehicles</a>
+        <a href="/admin/add-vehicle.html" class="admin-nav-link" data-page="add-vehicle"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+        <a href="/admin/bookings.html" class="admin-nav-link" data-page="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a>
+        <a href="/admin/customers.html" class="admin-nav-link" data-page="customers"><i class="fas fa-users"></i> Customers</a>
+        <a href="/admin/inquiries.html" class="admin-nav-link" data-page="inquiries"><i class="fas fa-envelope"></i> Inquiries</a>
+        <a href="/admin/settings.html" class="admin-nav-link active" data-page="settings"><i class="fas fa-cog"></i> Settings</a>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <a href="/" class="admin-nav-link"><i class="fas fa-globe"></i> View Site</a>
+        <a href="#" class="admin-nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <h1>Account Settings</h1>
+        <p>Manage your login credentials and account security.</p>
+      </div>
+
+      <!-- Current Account Info -->
+      <div class="admin-section">
+        <div class="glass-card" style="padding: 30px; margin-bottom: 30px;">
+          <h3 class="gold-text" style="margin-bottom: 20px;">CURRENT ACCOUNT</h3>
+          <div class="settings-info">
+            <div class="settings-info-row">
+              <span class="settings-label"><i class="fas fa-envelope"></i> Email</span>
+              <span class="settings-value" id="currentEmail">Loading...</span>
+            </div>
+            <div class="settings-info-row">
+              <span class="settings-label"><i class="fas fa-user"></i> Name</span>
+              <span class="settings-value" id="currentName">Loading...</span>
+            </div>
+            <div class="settings-info-row">
+              <span class="settings-label"><i class="fas fa-shield-alt"></i> Role</span>
+              <span class="settings-value"><span class="badge badge-status badge-available">ADMIN</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Change Email -->
+      <div class="admin-section">
+        <div class="glass-card admin-form" style="padding: 30px; margin-bottom: 30px;">
+          <h3 class="gold-text" style="margin-bottom: 20px;">CHANGE EMAIL</h3>
+          <form id="changeEmailForm">
+            <div class="form-group">
+              <label for="emailCurrentPassword">Current Password <span class="required">*</span></label>
+              <input type="password" id="emailCurrentPassword" name="current_password" required placeholder="Enter your current password" autocomplete="current-password">
+            </div>
+            <div class="form-group">
+              <label for="newEmail">New Email Address <span class="required">*</span></label>
+              <input type="email" id="newEmail" name="new_email" required placeholder="newemail@example.com" autocomplete="email">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-gold" id="changeEmailBtn">
+                <i class="fas fa-envelope"></i> UPDATE EMAIL
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="admin-section">
+        <div class="glass-card admin-form" style="padding: 30px;">
+          <h3 class="gold-text" style="margin-bottom: 20px;">CHANGE PASSWORD</h3>
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="passCurrentPassword">Current Password <span class="required">*</span></label>
+              <input type="password" id="passCurrentPassword" name="current_password" required placeholder="Enter your current password" autocomplete="current-password">
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password <span class="required">*</span></label>
+              <input type="password" id="newPassword" name="new_password" required placeholder="Minimum 8 characters" minlength="8" autocomplete="new-password">
+            </div>
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password <span class="required">*</span></label>
+              <input type="password" id="confirmNewPassword" name="confirm_password" required placeholder="Re-enter new password" autocomplete="new-password">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-gold" id="changePasswordBtn">
+                <i class="fas fa-lock"></i> UPDATE PASSWORD
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/admin.js"></script>
+  <script>
+    // Settings page logic
+    document.addEventListener('DOMContentLoaded', function () {
+      // Populate current account info once admin auth completes
+      const checkAdmin = setInterval(() => {
+        if (window.adminUser) {
+          clearInterval(checkAdmin);
+          const emailEl = document.getElementById('currentEmail');
+          const nameEl = document.getElementById('currentName');
+          if (emailEl) emailEl.textContent = window.adminUser.email || 'N/A';
+          if (nameEl) nameEl.textContent = `${window.adminUser.first_name || ''} ${window.adminUser.last_name || ''}`.trim() || 'N/A';
+        }
+      }, 200);
+
+      // Change Email form
+      const changeEmailForm = document.getElementById('changeEmailForm');
+      if (changeEmailForm) {
+        changeEmailForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const btn = document.getElementById('changeEmailBtn');
+          const original = btn.innerHTML;
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+          const current_password = document.getElementById('emailCurrentPassword').value;
+          const new_email = document.getElementById('newEmail').value.trim();
+
+          const res = await apiRequest('/api/auth/change-email', {
+            method: 'PUT',
+            body: { current_password, new_email }
+          });
+
+          btn.disabled = false;
+          btn.innerHTML = original;
+
+          if (res) {
+            showToast('Email updated successfully!', 'success');
+            changeEmailForm.reset();
+            const emailEl = document.getElementById('currentEmail');
+            if (emailEl) emailEl.textContent = res.email || new_email;
+          }
+        });
+      }
+
+      // Change Password form
+      const changePasswordForm = document.getElementById('changePasswordForm');
+      if (changePasswordForm) {
+        changePasswordForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const current_password = document.getElementById('passCurrentPassword').value;
+          const new_password = document.getElementById('newPassword').value;
+          const confirm_password = document.getElementById('confirmNewPassword').value;
+
+          if (new_password.length < 8) {
+            showToast('New password must be at least 8 characters', 'error');
+            return;
+          }
+
+          if (new_password !== confirm_password) {
+            showToast('New passwords do not match', 'error');
+            return;
+          }
+
+          const btn = document.getElementById('changePasswordBtn');
+          const original = btn.innerHTML;
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+          const res = await apiRequest('/api/auth/change-password', {
+            method: 'PUT',
+            body: { current_password, new_password }
+          });
+
+          btn.disabled = false;
+          btn.innerHTML = original;
+
+          if (res) {
+            showToast('Password updated successfully!', 'success');
+            changePasswordForm.reset();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

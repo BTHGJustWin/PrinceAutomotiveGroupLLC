@@ -116,11 +116,13 @@ function initDatabase() {
 }
 
 function seedAdmin(database) {
-  const hashedPassword = bcrypt.hashSync('PrinceAdmin2025!', 10);
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@princeautomotivegroupllc.com';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'Prince$ecure2025!AG';
+  const hashedPassword = bcrypt.hashSync(adminPassword, 12);
   database.prepare(`
     INSERT INTO users (email, password, first_name, last_name, role)
     VALUES (?, ?, ?, ?, ?)
-  `).run('admin@princeautomotivegroupllc.com', hashedPassword, 'Prince', 'Admin', 'admin');
+  `).run(adminEmail, hashedPassword, 'Prince', 'Admin', 'admin');
   console.log('[DB] Default admin user seeded.');
 }
 

@@ -45,6 +45,7 @@ async function initAdminAuth() {
     initAdminDashboard();
     initAdminVehicles();
     initAdminVehicleForm();
+    initImageUpload();
     initAdminBookings();
     initAdminCustomers();
     initAdminInquiries();
@@ -497,6 +498,140 @@ function updateImageUrlsData() {
   const hidden = document.getElementById('imageUrlsData');
   if (hidden) {
     hidden.value = JSON.stringify(vehicleImageUrls);
+  }
+}
+
+// ============================================================
+// DRAG & DROP IMAGE UPLOAD
+// ============================================================
+
+function initImageUpload() {
+  const dropzone = document.getElementById('uploadDropzone');
+  const fileInput = document.getElementById('fileInput');
+  if (!dropzone || !fileInput) return;
+
+  // Click to browse
+  dropzone.addEventListener('click', function () {
+    fileInput.click();
+  });
+
+  // File input change
+  fileInput.addEventListener('change', function () {
+    if (this.files && this.files.length > 0) {
+      uploadFiles(this.files);
+      this.value = ''; // reset so same file can be re-selected
+    }
+  });
+
+  // Drag events
+  dropzone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.add('dragover');
+  });
+  dropzone.addEventListener('dragleave', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('dragover');
+  });
+  dropzone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('dragover');
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      uploadFiles(files);
+    }
+  });
+}
+
+async function uploadFiles(fileList) {
+  const files = Array.from(fileList);
+  const maxImages = 10;
+
+  // Check current count
+  if (vehicleImageUrls.length >= maxImages) {
+    showToast('Maximum 10 images allowed', 'error');
+    return;
+  }
+
+  // Filter only images
+  const imageFiles = files.filter(f =>
+    ['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(f.type)
+  );
+
+  if (imageFiles.length === 0) {
+    showToast('Only JPEG, PNG, WebP, and GIF images are allowed', 'error');
+    return;
+  }
+
+  // Limit to remaining slots
+  const remaining = maxImages - vehicleImageUrls.length;
+  const toUpload = imageFiles.slice(0, remaining);
+
+  if (imageFiles.length > remaining) {
+    showToast(`Only uploading ${remaining} of ${imageFiles.length} images (max 10 total)`, 'info');
+  }
+
+  // Check file sizes
+  const oversized = toUpload.filter(f => f.size > 10 * 1024 * 1024);
+  if (oversized.length > 0) {
+    showToast(`${oversized.length} file(s) exceed the 10MB limit`, 'error');
+    return;
+  }
+
+  // Show progress
+  const progressEl = document.getElementById('uploadProgress');
+  const progressFill = document.getElementById('uploadProgressFill');
+  const statusText = document.getElementById('uploadStatusText');
+  if (progressEl) progressEl.style.display = 'block';
+  if (progressFill) progressFill.style.width = '10%';
+  if (statusText) statusText.textContent = `Uploading ${toUpload.length} image(s)...`;
+
+  const formData = new FormData();
+  toUpload.forEach(f => formData.append('images', f));
+
+  try {
+    if (progressFill) progressFill.style.width = '50%';
+
+    const response = await fetch('/api/admin/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (progressFill) progressFill.style.width = '90%';
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showToast(data.error || 'Upload failed', 'error');
+      if (progressEl) progressEl.style.display = 'none';
+      return;
+    }
+
+    // Add returned URLs to the image array
+    if (data.urls && Array.isArray(data.urls)) {
+      vehicleImageUrls.push(...data.urls);
+      renderImagePreviews();
+      updateImageUrlsData();
+    }
+
+    if (progressFill) progressFill.style.width = '100%';
+    if (statusText) statusText.textContent = `${toUpload.length} image(s) uploaded successfully!`;
+
+    showToast(`${toUpload.length} image(s) uploaded!`, 'success');
+
+    // Hide progress after a moment
+    setTimeout(() => {
+      if (progressEl) progressEl.style.display = 'none';
+      if (progressFill) progressFill.style.width = '0%';
+    }, 2000);
+
+  } catch (err) {
+    console.error('Upload error:', err);
+    showToast('Upload failed. Please try again.', 'error');
+    if (progressEl) progressEl.style.display = 'none';
   }
 }
 

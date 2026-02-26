@@ -44,6 +44,7 @@
         <a href="/admin/bookings.html" class="admin-nav-link" data-page="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a>
         <a href="/admin/customers.html" class="admin-nav-link" data-page="customers"><i class="fas fa-users"></i> Customers</a>
         <a href="/admin/inquiries.html" class="admin-nav-link" data-page="inquiries"><i class="fas fa-envelope"></i> Inquiries</a>
+        <a href="/admin/settings.html" class="admin-nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a>
       </nav>
       <div class="admin-sidebar-footer">
         <a href="/" class="admin-nav-link"><i class="fas fa-globe"></i> View Site</a>
@@ -213,14 +214,32 @@
           </div>
         </div>
 
-        <!-- Image URLs -->
+        <!-- Images -->
         <div class="form-section">
           <h3 class="gold-text">IMAGES</h3>
-          <p class="form-hint">Add image URLs from Google Photos, Facebook, or any image hosting site. Upload your photos there first, then paste the links here.</p>
+
+          <!-- Drag & Drop Upload -->
+          <div class="upload-dropzone" id="uploadDropzone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Drag & drop photos here, or <strong class="gold-text">click to browse</strong></p>
+            <p class="upload-hint">JPEG, PNG, WebP or GIF - Max 10MB each - Up to 10 images</p>
+            <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+          </div>
+          <div class="upload-progress" id="uploadProgress" style="display: none;">
+            <div class="upload-progress-bar">
+              <div class="upload-progress-fill" id="uploadProgressFill"></div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;" id="uploadStatusText">Uploading...</p>
+          </div>
+
+          <div class="upload-or-divider">or paste a URL</div>
+
+          <!-- URL Paste Fallback -->
           <div class="image-url-input-row">
             <input type="url" id="imageUrlInput" placeholder="Paste image URL here (https://...)" class="form-control">
             <button type="button" class="btn btn-primary btn-sm" onclick="addImageUrl()"><i class="fas fa-plus"></i> Add</button>
           </div>
+
           <div class="image-preview-grid" id="imagePreview"></div>
           <input type="hidden" id="imageUrlsData" name="image_urls" value="[]">
         </div>
